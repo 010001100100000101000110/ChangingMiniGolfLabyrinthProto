@@ -6,13 +6,11 @@ public class CameraMover : MonoBehaviour
 {
     public void TurnCameraRight()
     {
-
-        this.transform.Rotate(this.transform.rotation.x, this.transform.rotation.y - 90, this.transform.rotation.z, Space.Self);
-        Debug.Log("KIKIKAKA");
+        transform.rotation *= Quaternion.Euler(0, -90, 0);
     }
     public void TurnCameraLeft()
     {
-        this.transform.Rotate(this.transform.rotation.x, this.transform.rotation.y + 90, this.transform.rotation.z, Space.Self);
+        transform.rotation *= Quaternion.Euler(0, 90, 0);
     }
 
 }
