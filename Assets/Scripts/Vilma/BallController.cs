@@ -13,7 +13,6 @@ public class BallController : MonoBehaviour
     [SerializeField] float maxPullDistance;
     public int launchAmount { get; private set; }
     public Vector3 lastPosition { get; private set; }
-    Vector2 mousePosition;
     float currentDrag;
     float currentAngularDrag;
 
@@ -31,6 +30,7 @@ public class BallController : MonoBehaviour
 
     void Update()
     {
+        if (rigidbody.velocity.magnitude > 0) canLaunch = false;
         if (canLaunch) LaunchBallMode();
         if (!canLaunch) StopBallVelocity();
         if (canRenderLine) LineRendering();
@@ -53,8 +53,7 @@ public class BallController : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && selected && selected.tag == "Player")
         {            
             LaunchBall();
-            CantLineRender();
-            canLaunch = false;
+            CantLineRender();            
             selected = null;
         }
     }
@@ -88,7 +87,7 @@ public class BallController : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             Vector3 playerPos = this.transform.position;
-            Vector3 trajectoryDir = (playerPos - hit.point).normalized;
+            Vector3 trajectoryDir = (new Vector3(this.transform.position.x, hit.point.y, this.transform.position.z) - hit.point).normalized;
             float distance = Vector3.Distance(playerPos, hit.point); 
             float clampDistance = Mathf.Clamp(distance, 0, maxPullDistance);
             float force = clampDistance * launchForce;
@@ -107,8 +106,7 @@ public class BallController : MonoBehaviour
         {
             rigidbody.drag = currentDrag;
             rigidbody.angularDrag = currentAngularDrag;
-            Debug.Log("caca doodoo");
-            //canLaunch = true;
+            canLaunch = true;
         }
     }
 }
