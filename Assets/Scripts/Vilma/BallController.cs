@@ -7,17 +7,20 @@ public class BallController : MonoBehaviour
     [SerializeField] GameObject selected;
     Rigidbody rigidbody;
     LineRenderer lineRenderer;
+    EventMethods eventMethods;
+
     [SerializeField] bool canLaunch;
     bool canRenderLine;
-    [SerializeField] float launchForce;
-    [SerializeField] float maxPullDistance;
     public int launchAmount { get; private set; }
-    public Vector3 lastPosition { get; private set; }
     float currentDrag;
     float currentAngularDrag;
+    [SerializeField] float launchForce;
+    [SerializeField] float maxPullDistance;
 
-    [SerializeField] int launchesLeft;
-    [SerializeField] int launchCapacity;
+    public bool ballSelected { get; private set; }
+    
+
+   
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -26,6 +29,7 @@ public class BallController : MonoBehaviour
         currentDrag = rigidbody.drag;
         currentAngularDrag = rigidbody.angularDrag;
         canLaunch = true;
+        eventMethods = FindObjectOfType<EventMethods>();
     }
 
     void Update()
@@ -33,7 +37,16 @@ public class BallController : MonoBehaviour
         if (rigidbody.velocity.magnitude > 0) canLaunch = false;
         if (canLaunch) LaunchBallMode();
         if (!canLaunch) StopBallVelocity();
-        if (canRenderLine) LineRendering();
+        if (ballSelected)
+        {
+            CanLineRender();
+            LineRendering();
+        }
+        if (!ballSelected)
+        {
+            CantLineRender();
+
+        }
     }
     void LaunchBallMode()
     {
@@ -45,7 +58,7 @@ public class BallController : MonoBehaviour
             {                
                 if (hit.transform.tag == "Player")
                 {
-                    CanLineRender();
+                    ballSelected = true;
                     selected = hit.transform.gameObject;
                 }                    
             }                
@@ -53,35 +66,14 @@ public class BallController : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && selected && selected.tag == "Player")
         {            
             LaunchBall();
-            CantLineRender();            
+            ballSelected = false;
             selected = null;
         }
     }
     
-    void LineRendering()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        lineRenderer.SetPosition(0, this.transform.position);
-        if (Physics.Raycast(ray, out hit)) lineRenderer.SetPosition(1, hit.point);
-    }
-    public void CanLineRender()
-    {
-        canRenderLine = true;
-        lineRenderer.enabled = true;
-    }
 
-    public void CantLineRender()
-    {
-        canRenderLine = false;
-        lineRenderer.enabled = false;
-    }
     void LaunchBall()
     {
-        //rigidbody.bodyType = RigidbodyType2D.Dynamic;
-        //rigidbody.constraints = RigidbodyConstraints2D.None;
-        //rigidbody.freezeRotation = false;
-
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
@@ -93,6 +85,7 @@ public class BallController : MonoBehaviour
             float force = clampDistance * launchForce;
                         
             rigidbody.AddForce(trajectoryDir * force, ForceMode.Impulse);
+            eventMethods.BallLaunched();
         }         
     }
     void StopBallVelocity()
@@ -107,6 +100,39 @@ public class BallController : MonoBehaviour
             rigidbody.drag = currentDrag;
             rigidbody.angularDrag = currentAngularDrag;
             canLaunch = true;
+            eventMethods.BallStopped();
         }
+    }
+    void LineRendering()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        lineRenderer.SetPosition(0, this.transform.position);
+        if (Physics.Raycast(ray, out hit)) lineRenderer.SetPosition(1, hit.point);
+    }
+
+    public float GetDistance()
+    {
+        float distance = 0;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit)) distance = Vector3.Distance(new Vector3(this.transform.position.x, hit.point.y, transform.position.z), hit.point);
+        return distance;
+    }
+    public void CanLineRender()
+    {
+        canRenderLine = true;
+        lineRenderer.enabled = true;
+    }
+
+    public void CantLineRender()
+    {
+        canRenderLine = false;
+        lineRenderer.enabled = false;
+    }
+
+    public float GetMaxDistance()
+    {
+        return maxPullDistance; 
     }
 }

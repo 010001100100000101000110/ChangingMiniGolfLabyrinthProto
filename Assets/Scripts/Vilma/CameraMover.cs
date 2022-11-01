@@ -12,5 +12,4 @@ public class CameraMover : MonoBehaviour
     {
         transform.rotation *= Quaternion.Euler(0, 90, 0);
     }
-
 }
