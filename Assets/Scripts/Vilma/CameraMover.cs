@@ -8,6 +8,7 @@ public class CameraMover : MonoBehaviour
     {
 
         this.transform.Rotate(this.transform.rotation.x, this.transform.rotation.y - 90, this.transform.rotation.z, Space.Self);
+        Debug.Log("KIKIKAKA");
     }
     public void TurnCameraLeft()
     {

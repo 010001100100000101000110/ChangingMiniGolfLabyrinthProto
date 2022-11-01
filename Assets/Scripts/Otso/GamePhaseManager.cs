@@ -24,7 +24,7 @@ public class GamePhaseManager : MonoBehaviour
     }
 
     public enum GamePhase { cardPhase, movePhase, labyrinthMovePhase};
-    [SerializeField] private GamePhase gamePhase;
+    public GamePhase gamePhase;
 
     void Awake()
     {
@@ -32,8 +32,8 @@ public class GamePhaseManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    void Update()
+    public void UpdateGamePhase(GamePhase newState)
     {
-       
+        gamePhase = newState;
     }
 }
