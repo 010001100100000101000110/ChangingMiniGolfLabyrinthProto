@@ -7,6 +7,7 @@ public class EventMethods : MonoBehaviour
     [SerializeField] GameEvent OnResourceCollected;
     [SerializeField] GameEvent OnKeyCollected;
     [SerializeField] GameEvent OnBallLaunched;
+    [SerializeField] GameEvent OnBallStopped;
 
 
     public void ResourceCollected()
@@ -22,5 +23,10 @@ public class EventMethods : MonoBehaviour
     public void BallLaunched()
     {
         OnBallLaunched?.Raise();
+    }
+
+    public void BallStopped()
+    {
+        OnBallStopped?.Raise();
     }
 }

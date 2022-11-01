@@ -16,6 +16,8 @@ public class BallController : MonoBehaviour
     float currentAngularDrag;
     [SerializeField] float launchForce;
     [SerializeField] float maxPullDistance;
+
+    public bool ballSelected { get; private set; }
     
 
    
@@ -35,7 +37,16 @@ public class BallController : MonoBehaviour
         if (rigidbody.velocity.magnitude > 0) canLaunch = false;
         if (canLaunch) LaunchBallMode();
         if (!canLaunch) StopBallVelocity();
-        if (canRenderLine) LineRendering();
+        if (ballSelected)
+        {
+            CanLineRender();
+            LineRendering();
+        }
+        if (!ballSelected)
+        {
+            CantLineRender();
+
+        }
     }
     void LaunchBallMode()
     {
@@ -47,7 +58,7 @@ public class BallController : MonoBehaviour
             {                
                 if (hit.transform.tag == "Player")
                 {
-                    CanLineRender();
+                    ballSelected = true;
                     selected = hit.transform.gameObject;
                 }                    
             }                
@@ -55,7 +66,7 @@ public class BallController : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && selected && selected.tag == "Player")
         {            
             LaunchBall();
-            CantLineRender();            
+            ballSelected = false;
             selected = null;
         }
     }
@@ -89,6 +100,7 @@ public class BallController : MonoBehaviour
             rigidbody.drag = currentDrag;
             rigidbody.angularDrag = currentAngularDrag;
             canLaunch = true;
+            eventMethods.BallStopped();
         }
     }
     void LineRendering()
@@ -97,6 +109,15 @@ public class BallController : MonoBehaviour
         RaycastHit hit;
         lineRenderer.SetPosition(0, this.transform.position);
         if (Physics.Raycast(ray, out hit)) lineRenderer.SetPosition(1, hit.point);
+    }
+
+    public float GetDistance()
+    {
+        float distance = 0;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit)) distance = Vector3.Distance(new Vector3(this.transform.position.x, hit.point.y, transform.position.z), hit.point);
+        return distance;
     }
     public void CanLineRender()
     {
@@ -108,5 +129,10 @@ public class BallController : MonoBehaviour
     {
         canRenderLine = false;
         lineRenderer.enabled = false;
+    }
+
+    public float GetMaxDistance()
+    {
+        return maxPullDistance; 
     }
 }
