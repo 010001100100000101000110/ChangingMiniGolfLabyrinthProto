@@ -6,6 +6,7 @@ public class CameraMover : MonoBehaviour
 {
     public void TurnCameraRight()
     {
+
         this.transform.Rotate(this.transform.rotation.x, this.transform.rotation.y - 90, this.transform.rotation.z, Space.Self);
     }
     public void TurnCameraLeft()
