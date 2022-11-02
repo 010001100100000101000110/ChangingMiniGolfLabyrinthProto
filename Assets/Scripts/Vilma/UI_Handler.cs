@@ -10,11 +10,12 @@ public class UI_Handler : MonoBehaviour
     [SerializeField] TMP_Text keysCollectedText;
     [SerializeField] TMP_Text resourcesCollectedText;
     [SerializeField] Image launchPowerFillImage;
+    [SerializeField] GameObject gameOverPanel;
     LaunchTracker launchTracker;
     Inventory inventory;
     BallController controller;
 
-    private void Awake()
+    private void Start()
     {
         launchTracker = FindObjectOfType<LaunchTracker>();
         inventory = FindObjectOfType<Inventory>();
@@ -49,5 +50,10 @@ public class UI_Handler : MonoBehaviour
     public void UpdateResourcesCollectedAmount()
     {
         resourcesCollectedText.text = "Resources collected: " + inventory.ResourcesCollected;
+    }
+
+    public void SetActiveGameOverPanel()
+    {
+        if (launchTracker.launchesLeft <= 0) gameOverPanel.SetActive(true);
     }
 }

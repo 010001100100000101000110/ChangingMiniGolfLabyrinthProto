@@ -15,4 +15,10 @@ public class Inventory : MonoBehaviour
     {
         ResourcesCollected++;
     }
+
+    public void ResetInventory()
+    {
+        KeysCollected = 0;
+        ResourcesCollected = 0;
+    }
 }

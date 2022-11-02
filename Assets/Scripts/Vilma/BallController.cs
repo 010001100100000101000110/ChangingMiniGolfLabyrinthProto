@@ -6,11 +6,10 @@ public class BallController : MonoBehaviour
 {
     [SerializeField] GameObject selected;
     Rigidbody rigidbody;
-    LineRenderer lineRenderer;
+    
     EventMethods eventMethods;
 
     [SerializeField] bool canLaunch;
-    bool canRenderLine;
     public int launchAmount { get; private set; }
     float currentDrag;
     float currentAngularDrag;
@@ -24,8 +23,7 @@ public class BallController : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.enabled = false;
+        
         currentDrag = rigidbody.drag;
         currentAngularDrag = rigidbody.angularDrag;
         canLaunch = true;
@@ -37,16 +35,7 @@ public class BallController : MonoBehaviour
         if (rigidbody.velocity.magnitude > 0) canLaunch = false;
         if (canLaunch) LaunchBallMode();
         if (!canLaunch) StopBallVelocity();
-        if (ballSelected)
-        {
-            CanLineRender();
-            LineRendering();
-        }
-        if (!ballSelected)
-        {
-            CantLineRender();
-
-        }
+  
     }
     void LaunchBallMode()
     {
@@ -103,14 +92,12 @@ public class BallController : MonoBehaviour
             eventMethods.BallStopped();
         }
     }
-    void LineRendering()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        lineRenderer.SetPosition(0, this.transform.position);
-        if (Physics.Raycast(ray, out hit)) lineRenderer.SetPosition(1, hit.point);
-    }
 
+    public void ResetPlayerPosition()
+    {
+        this.transform.position = new Vector3(0, 0, 0);
+    }
+    
     public float GetDistance()
     {
         float distance = 0;
@@ -119,18 +106,6 @@ public class BallController : MonoBehaviour
         if (Physics.Raycast(ray, out hit)) distance = Vector3.Distance(new Vector3(this.transform.position.x, hit.point.y, transform.position.z), hit.point);
         return distance;
     }
-    public void CanLineRender()
-    {
-        canRenderLine = true;
-        lineRenderer.enabled = true;
-    }
-
-    public void CantLineRender()
-    {
-        canRenderLine = false;
-        lineRenderer.enabled = false;
-    }
-
     public float GetMaxDistance()
     {
         return maxPullDistance; 
