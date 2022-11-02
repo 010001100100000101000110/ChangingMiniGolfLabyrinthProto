@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class GamePhaseManager : MonoBehaviour
 
     public enum GamePhase { cardPhase, movePhase, labyrinthMovePhase};
     public GamePhase gamePhase;
+    public bool canMove;
 
     void Awake()
     {
@@ -35,9 +37,31 @@ public class GamePhaseManager : MonoBehaviour
         uiHandler = FindObjectOfType<UI_Handler>();
     }
 
+    private void Update()
+    {
+    }
+
     public void UpdateGamePhase(GamePhase newState)
     {
         gamePhase = newState;
+
+        switch (newState)
+        {
+            case GamePhase.cardPhase:
+                CanMove(false);
+                break;
+            case GamePhase.movePhase:
+                CanMove(true);
+                break;
+            case GamePhase.labyrinthMovePhase:
+                CanMove(false);
+                break;
+        }
         uiHandler.UpdateGamePhaseText();
+    }
+
+    public bool CanMove(bool canLaunch)
+    {
+        return canLaunch;
     }
 }

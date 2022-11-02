@@ -86,6 +86,7 @@ public class BallController : MonoBehaviour
                         
             rigidbody.AddForce(trajectoryDir * force, ForceMode.Impulse);
             eventMethods.BallLaunched();
+            GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.labyrinthMovePhase);
         }         
     }
     void StopBallVelocity()

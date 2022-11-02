@@ -4169,6 +4169,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1460632467}
     m_Modifications:
+    - target: {fileID: 6982771273553374836, guid: 1715dce6a313c0449922478d3f6d15a8, type: 3}
+      propertyPath: gamePhase
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6982771273553374837, guid: 1715dce6a313c0449922478d3f6d15a8, type: 3}
       propertyPath: m_Name
       value: GamePhaseManager
