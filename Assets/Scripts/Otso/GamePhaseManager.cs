@@ -23,6 +23,8 @@ public class GamePhaseManager : MonoBehaviour
         }
     }
 
+    UI_Handler uiHandler;
+
     public enum GamePhase { cardPhase, movePhase, labyrinthMovePhase};
     public GamePhase gamePhase;
 
@@ -30,10 +32,12 @@ public class GamePhaseManager : MonoBehaviour
     {
         if (instance != null) Destroy(this);
         DontDestroyOnLoad(this);
+        uiHandler = FindObjectOfType<UI_Handler>();
     }
 
     public void UpdateGamePhase(GamePhase newState)
     {
         gamePhase = newState;
+        uiHandler.UpdateGamePhaseText();
     }
 }

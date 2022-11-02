@@ -9,6 +9,7 @@ public class UI_Handler : MonoBehaviour
     [SerializeField] TMP_Text launchesLeftText;
     [SerializeField] TMP_Text keysCollectedText;
     [SerializeField] TMP_Text resourcesCollectedText;
+    [SerializeField] TMP_Text gamePhaseText;
     [SerializeField] Image launchPowerFillImage;
     LaunchTracker launchTracker;
     Inventory inventory;
@@ -22,6 +23,7 @@ public class UI_Handler : MonoBehaviour
         UpdateLaunchesLeftAmount();
         UpdateKeysCollectedAmount();
         UpdateResourcesCollectedAmount();
+        UpdateGamePhaseText();
     }
 
     private void Update()
@@ -49,5 +51,10 @@ public class UI_Handler : MonoBehaviour
     public void UpdateResourcesCollectedAmount()
     {
         resourcesCollectedText.text = "Resources collected: " + inventory.ResourcesCollected;
+    }
+
+    public void UpdateGamePhaseText()
+    {
+        gamePhaseText.text = "Game Phase: " + GamePhaseManager.Instance.gamePhase;
     }
 }
