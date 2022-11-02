@@ -30,6 +30,6 @@ public class LineRendering : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         lineRenderer.SetPosition(0, controller.transform.position);
-        if (Physics.Raycast(ray, out hit)) lineRenderer.SetPosition(1, hit.point);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~3)) lineRenderer.SetPosition(1, hit.point);
     }
 }

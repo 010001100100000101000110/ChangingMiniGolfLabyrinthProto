@@ -35,7 +35,6 @@ public class BallController : MonoBehaviour
         if (rigidbody.velocity.magnitude > 0) canLaunch = false;
         if (canLaunch) LaunchBallMode();
         if (!canLaunch) StopBallVelocity();
-  
     }
     void LaunchBallMode()
     {
@@ -65,7 +64,7 @@ public class BallController : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~3))
         {
             Vector3 playerPos = this.transform.position;
             Vector3 trajectoryDir = (new Vector3(this.transform.position.x, hit.point.y, this.transform.position.z) - hit.point).normalized;
@@ -103,7 +102,7 @@ public class BallController : MonoBehaviour
         float distance = 0;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit)) distance = Vector3.Distance(new Vector3(this.transform.position.x, hit.point.y, transform.position.z), hit.point);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~3)) distance = Vector3.Distance(new Vector3(this.transform.position.x, hit.point.y, transform.position.z), hit.point);
         return distance;
     }
     public float GetMaxDistance()
