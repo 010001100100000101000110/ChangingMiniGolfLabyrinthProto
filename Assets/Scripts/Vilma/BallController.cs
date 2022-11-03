@@ -29,7 +29,7 @@ public class BallController : MonoBehaviour
     void Update()
     {
         if (rigidbody.velocity.magnitude > 0 || !isGrounded) canLaunch = false;
-        if (canLaunch) LaunchBallMode();
+        if (canLaunch && (GamePhaseManager.Instance.gamePhase == GamePhaseManager.GamePhase.movePhase)) LaunchBallMode();
         if (!canLaunch) StopBallVelocity();
     }
     void LaunchBallMode()
@@ -69,6 +69,9 @@ public class BallController : MonoBehaviour
                         
             rigidbody.AddForce(trajectoryDir * force, ForceMode.Impulse);
             helper.eventMethods.BallLaunched();
+
+            // (Otson lisäys) Vaihdetaan GamePhase
+            GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.labyrinthMovePhase);
         }         
     }
     void StopBallVelocity()

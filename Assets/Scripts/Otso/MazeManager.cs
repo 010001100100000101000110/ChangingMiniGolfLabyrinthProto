@@ -6,20 +6,33 @@ public class MazeManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] cells;
     [SerializeField] private List<GameObject> nextRotatingCells;
+    [SerializeField] private List<GameObject> cloneList;
+
+    Helper helper;
     private int randomNum;
     private int randomNum2;
     private float[] randomRotation = new float[] { 90f, 180f, 270f };
 
+    [SerializeField] private Material originalMat;
+    [SerializeField] private Material transparentMat;
+    private GameObject showRotationObject;
+
+    private void Awake()
+    {
+        helper = FindObjectOfType<Helper>();
+    }
+
     void Start()
     {
         PickRandomCells();
+        ShowCellRotationInfo();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            RotateCells();
+            
         }
     }
 
@@ -29,19 +42,66 @@ public class MazeManager : MonoBehaviour
         randomNum2 = Random.Range(0, cells.Length);
         nextRotatingCells.Add(cells[randomNum]);
         nextRotatingCells.Add(cells[randomNum2]);
+        Debug.Log("Random cells added to list");
     }
 
-    private void RotateCells()
+    public void RotateCells()
     {
-        foreach(GameObject cell in nextRotatingCells)
+        Debug.Log("RotateCells method called");
+        if (GamePhaseManager.Instance.gamePhase != GamePhaseManager.GamePhase.labyrinthMovePhase)
         {
-            //float rotation = Random.Range(randomRotation[0], randomRotation.Length);
-            cell.gameObject.transform.Rotate(0, 90, 0);
+            return;
+        }
+        else
+        {
+            foreach (GameObject cell in nextRotatingCells)
+            {
+                cell.gameObject.transform.Rotate(0, 90, 0);
+                Debug.Log("Cells rotated");
+            }
+            ClearNextRotatingCellsList();
+            PickRandomCells();
+            ShowCellRotationInfo();
+            GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.cardPhase);
         }
     }
 
     private void ClearNextRotatingCellsList()
     {
         nextRotatingCells.Clear();
+        DestroyClones();
+        Debug.Log("nextRotatingCellsList cleared");
+    }
+
+    public void ShowCellRotationInfo()
+    {
+        foreach (GameObject cell in nextRotatingCells)
+        {
+            showRotationObject = Instantiate(cell, cell.transform.position, Quaternion.Euler(0, 90, 0));
+
+            MeshRenderer[] meshRenderers = showRotationObject.GetComponentsInChildren<MeshRenderer>();
+            foreach(MeshRenderer renederer in meshRenderers)
+            {
+                renederer.material = transparentMat;
+            }
+
+            BoxCollider[] boxColliders = showRotationObject.GetComponentsInChildren<BoxCollider>();
+            foreach (BoxCollider boxCollider in boxColliders)
+            {
+                boxCollider.enabled = false;
+            }
+
+            cloneList.Add(showRotationObject);
+        }
+    }
+
+    public void DestroyClones()
+    {
+        foreach (GameObject clone in cloneList)
+        {
+            Destroy(clone);
+        }
+
+        cloneList.Clear();
     }
 }

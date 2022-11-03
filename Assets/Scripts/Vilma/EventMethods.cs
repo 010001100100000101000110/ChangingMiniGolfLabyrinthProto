@@ -9,6 +9,7 @@ public class EventMethods : MonoBehaviour
     [SerializeField] GameEvent OnBallLaunched;
     [SerializeField] GameEvent OnBallStopped;
     [SerializeField] GameEvent OnTryAgain;
+    [SerializeField] GameEvent OnMazeRotate;
 
 
     public void ResourceCollected()
@@ -34,5 +35,10 @@ public class EventMethods : MonoBehaviour
     public void TryAgain()
     {
         OnTryAgain?.Raise();
+    }
+
+    public void MazeRotate()
+    {
+        OnMazeRotate?.Raise();
     }
 }
