@@ -6,34 +6,30 @@ public class BallController : MonoBehaviour
 {
     [SerializeField] GameObject selected;
     Rigidbody rigidbody;
-    
-    EventMethods eventMethods;
+
+    Helper helper;
 
     [SerializeField] bool canLaunch;
+    public bool ballSelected { get; private set; }
+    bool isGrounded;
+
     public int launchAmount { get; private set; }
     float currentDrag;
     float currentAngularDrag;
     [SerializeField] float launchForce;
     [SerializeField] float maxPullDistance;
-
-    public bool ballSelected { get; private set; }
-    
-
-   
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        
+        rigidbody = GetComponent<Rigidbody>();        
         currentDrag = rigidbody.drag;
         currentAngularDrag = rigidbody.angularDrag;
-        canLaunch = true;
-        eventMethods = FindObjectOfType<EventMethods>();
+        helper = FindObjectOfType<Helper>();
     }
 
     void Update()
     {
-        if (rigidbody.velocity.magnitude > 0) canLaunch = false;
-        if (canLaunch && (GamePhaseManager.Instance.gamePhase == GamePhaseManager.GamePhase.movePhase)) LaunchBallMode();
+        if (rigidbody.velocity.magnitude > 0 || !isGrounded) canLaunch = false;
+        if (canLaunch) LaunchBallMode();
         if (!canLaunch) StopBallVelocity();
     }
     void LaunchBallMode()
@@ -57,8 +53,7 @@ public class BallController : MonoBehaviour
             ballSelected = false;
             selected = null;
         }
-    }
-    
+    }    
 
     void LaunchBall()
     {
@@ -73,24 +68,26 @@ public class BallController : MonoBehaviour
             float force = clampDistance * launchForce;
                         
             rigidbody.AddForce(trajectoryDir * force, ForceMode.Impulse);
-            eventMethods.BallLaunched();
-            GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.labyrinthMovePhase);
+            helper.eventMethods.BallLaunched();
         }         
     }
     void StopBallVelocity()
     {
-        if (rigidbody.velocity.magnitude < 0.7 && rigidbody.velocity.magnitude > 0)
+        if (isGrounded)
         {
-            rigidbody.drag = 50;
-            rigidbody.angularDrag = 50;
-        }
-        if (rigidbody.velocity.magnitude == 0)
-        {
-            rigidbody.drag = currentDrag;
-            rigidbody.angularDrag = currentAngularDrag;
-            canLaunch = true;
-            eventMethods.BallStopped();
-        }
+            if (rigidbody.velocity.magnitude < 0.7 && rigidbody.velocity.magnitude > 0)
+            {
+                rigidbody.drag = 50;
+                rigidbody.angularDrag = 50;
+            }
+            if (rigidbody.velocity.magnitude == 0)
+            {
+                rigidbody.drag = currentDrag;
+                rigidbody.angularDrag = currentAngularDrag;
+                canLaunch = true;
+                helper.eventMethods.BallStopped();
+            }
+        }       
     }
 
     public void ResetPlayerPosition()
@@ -109,5 +106,15 @@ public class BallController : MonoBehaviour
     public float GetMaxDistance()
     {
         return maxPullDistance; 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground")) isGrounded = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground")) isGrounded = false;
     }
 }

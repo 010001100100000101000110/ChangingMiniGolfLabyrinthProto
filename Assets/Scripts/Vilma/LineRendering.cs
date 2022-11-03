@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LineRendering : MonoBehaviour
-{
-    [SerializeField] BallController controller;
-    [SerializeField] LineRenderer lineRenderer;
+{    
+    LineRenderer lineRenderer;
+    Helper helper;
     void Start()
     {
-        controller = FindObjectOfType<BallController>();
-        lineRenderer = GetComponent<LineRenderer>();
+        helper = FindObjectOfType<Helper>();
+        lineRenderer = GetComponent<LineRenderer>();       
         lineRenderer.enabled = false;
     }
 
     void Update()
     {
-        if (controller.ballSelected)
+        if (helper.controller.ballSelected)
         {
             lineRenderer.enabled = true;
             RenderLine();
         }
-        if (!controller.ballSelected)
+        if (!helper.controller.ballSelected)
         {
             lineRenderer.enabled = false;
         }
@@ -29,7 +29,7 @@ public class LineRendering : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        lineRenderer.SetPosition(0, controller.transform.position);
+        lineRenderer.SetPosition(0, helper.controller.transform.position);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~3)) lineRenderer.SetPosition(1, hit.point);
     }
 }

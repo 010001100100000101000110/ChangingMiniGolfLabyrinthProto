@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Key
   - Resource
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 
