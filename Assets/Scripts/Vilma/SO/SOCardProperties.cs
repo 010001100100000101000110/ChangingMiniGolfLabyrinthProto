@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 [CreateAssetMenu(fileName = "CardProperties", menuName = "ScriptableObjects/CardProperties")]
-public class SOProperties : ScriptableObject
+public class SOCardProperties : ScriptableObject
 {
-    [SerializeField] string cardName;
-    [SerializeField] string cardDescription;
+    [SerializeField] public string cardName;
+    [SerializeField] public string cardDescription;
     [SerializeField] public Sprite cardImage;
 }

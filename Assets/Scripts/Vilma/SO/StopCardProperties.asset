@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: StopCardProperties
   m_EditorClassIdentifier: 
   cardName: Stop Card
-  cardDescription: Prevents labyrinth from changing for one round
+  cardDescription: stop labyrinth from changing for one round
   cardImage: {fileID: 21300000, guid: 0a4c2985cf4866b4098065263ce09e7a, type: 3}

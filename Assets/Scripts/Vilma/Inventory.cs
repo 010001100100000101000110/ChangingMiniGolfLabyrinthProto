@@ -6,14 +6,20 @@ public class Inventory : MonoBehaviour
 {
     public int KeysCollected { get; private set; }
     public int ResourcesCollected { get; private set; }
-
+    [SerializeField] int amountToGetCard;
+    Helper helper;
+    private void Start()
+    {
+        helper = FindObjectOfType<Helper>();
+    }
     public void AddToKeysCollected()
     {
-        KeysCollected++;
+        KeysCollected++;        
     }
     public void AddToResourcesCollected()
     {
         ResourcesCollected++;
+        if (ResourcesCollected >= amountToGetCard) helper.eventMethods.ChooseCard();
     }
 
     public void ResetInventory()

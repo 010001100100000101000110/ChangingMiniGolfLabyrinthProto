@@ -9,7 +9,9 @@ public class EventMethods : MonoBehaviour
     [SerializeField] GameEvent OnBallLaunched;
     [SerializeField] GameEvent OnBallStopped;
     [SerializeField] GameEvent OnTryAgain;
-
+    [SerializeField] GameEvent OnChooseCard;
+    [SerializeField] GameEvent OnCardChosen;
+ 
 
     public void ResourceCollected()
     {
@@ -34,5 +36,15 @@ public class EventMethods : MonoBehaviour
     public void TryAgain()
     {
         OnTryAgain?.Raise();
+    }
+
+    public void ChooseCard()
+    {
+        OnChooseCard?.Raise();
+    }
+
+    public void CardChosen()
+    {
+        OnCardChosen?.Raise();
     }
 }
