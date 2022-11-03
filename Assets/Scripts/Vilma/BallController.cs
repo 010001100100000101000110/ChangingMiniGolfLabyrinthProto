@@ -35,7 +35,7 @@ public class BallController : MonoBehaviour
     void Update()
     {
         if (rigidbody.velocity.magnitude > 0) canLaunch = false;
-        if (canLaunch) LaunchBallMode();
+        if (canLaunch && (GamePhaseManager.Instance.gamePhase == GamePhaseManager.GamePhase.movePhase)) LaunchBallMode();
         if (!canLaunch) StopBallVelocity();
         if (ballSelected)
         {

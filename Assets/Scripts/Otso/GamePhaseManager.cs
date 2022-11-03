@@ -28,7 +28,6 @@ public class GamePhaseManager : MonoBehaviour
 
     public enum GamePhase { cardPhase, movePhase, labyrinthMovePhase};
     public GamePhase gamePhase;
-    public bool canMove;
 
     void Awake()
     {
@@ -48,20 +47,12 @@ public class GamePhaseManager : MonoBehaviour
         switch (newState)
         {
             case GamePhase.cardPhase:
-                CanMove(false);
                 break;
             case GamePhase.movePhase:
-                CanMove(true);
                 break;
             case GamePhase.labyrinthMovePhase:
-                CanMove(false);
                 break;
         }
         uiHandler.UpdateGamePhaseText();
-    }
-
-    public bool CanMove(bool canLaunch)
-    {
-        return canLaunch;
     }
 }
