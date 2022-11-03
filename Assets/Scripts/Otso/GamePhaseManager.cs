@@ -36,10 +36,7 @@ public class GamePhaseManager : MonoBehaviour
         uiHandler = FindObjectOfType<UI_Handler>();
     }
 
-    private void Update()
-    {
-    }
-
+    
     public void UpdateGamePhase(GamePhase newState)
     {
         gamePhase = newState;
@@ -53,6 +50,6 @@ public class GamePhaseManager : MonoBehaviour
             case GamePhase.labyrinthMovePhase:
                 break;
         }
-        uiHandler.UpdateGamePhaseText();
+        //uiHandler.UpdateGamePhaseText();
     }
 }
