@@ -7,5 +7,5 @@ public class SOProperties : ScriptableObject
 {
     [SerializeField] string cardName;
     [SerializeField] string cardDescription;
-    [SerializeField] Sprite cardImage;
+    [SerializeField] public Sprite cardImage;
 }
