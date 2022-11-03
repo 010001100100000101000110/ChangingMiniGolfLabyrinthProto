@@ -1324,7 +1324,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 954768852}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2552453007931904740}
+        m_TargetAssemblyTypeName: EventMethods, Assembly-CSharp
+        m_MethodName: CardChosen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &954768852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,7 +1687,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1517922811}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2552453007931904740}
+        m_TargetAssemblyTypeName: EventMethods, Assembly-CSharp
+        m_MethodName: CardChosen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1517922810
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2001,7 +2025,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1728085191}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2552453007931904740}
+        m_TargetAssemblyTypeName: EventMethods, Assembly-CSharp
+        m_MethodName: CardChosen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1728085191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3096,6 +3132,8 @@ MonoBehaviour:
   OnBallLaunched: {fileID: 11400000, guid: 7ca481e2efaac6944b727b8cf8120bb0, type: 2}
   OnBallStopped: {fileID: 11400000, guid: fda64c218a75d144199067974fccb525, type: 2}
   OnTryAgain: {fileID: 11400000, guid: a880359db3753db4fad5a1408ab8a51c, type: 2}
+  OnChooseCard: {fileID: 11400000, guid: 94fef8189a276e24cbfb2e400ac3597d, type: 2}
+  OnCardChosen: {fileID: 11400000, guid: c2749d91f97e453428e08ddc89fbf03a, type: 2}
 --- !u!4 &2552453007931904741
 Transform:
   m_ObjectHideFlags: 0
@@ -3534,6 +3572,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 364098916}
+        m_TargetAssemblyTypeName: CardRandomizer, Assembly-CSharp
+        m_MethodName: RandomizeCards
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4137,6 +4187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca0b51aaa0b86b4892dbb66eba2238d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amountToGetCard: 1
 --- !u!33 &2552453008303460380
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4174,7 +4225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selected: {fileID: 0}
   canLaunch: 0
-  launchForce: 3
+  launchForce: 4
   maxPullDistance: 6
 --- !u!1 &2552453008303460449
 GameObject:
@@ -5320,7 +5371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3427951253095865545, guid: bfd231f6188b5ec4cbad174e5083f6cf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1357.51
+      value: -1358.83
       objectReference: {fileID: 0}
     - target: {fileID: 3427951253095865545, guid: bfd231f6188b5ec4cbad174e5083f6cf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5328,7 +5379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3427951253095865545, guid: bfd231f6188b5ec4cbad174e5083f6cf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.46
+      value: 4.39
       objectReference: {fileID: 0}
     - target: {fileID: 3427951253095865545, guid: bfd231f6188b5ec4cbad174e5083f6cf, type: 3}
       propertyPath: m_LocalRotation.w
