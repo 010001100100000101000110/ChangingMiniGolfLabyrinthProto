@@ -9,13 +9,13 @@ public class UI_Handler : MonoBehaviour
     [SerializeField] TMP_Text launchesLeftText;
     [SerializeField] TMP_Text keysCollectedText;
     [SerializeField] TMP_Text resourcesCollectedText;
-    [SerializeField] TMP_Text gamePhaseText;
     [SerializeField] Image launchPowerFillImage;
+    [SerializeField] GameObject gameOverPanel;
     LaunchTracker launchTracker;
     Inventory inventory;
     BallController controller;
 
-    private void Awake()
+    private void Start()
     {
         launchTracker = FindObjectOfType<LaunchTracker>();
         inventory = FindObjectOfType<Inventory>();
@@ -23,7 +23,6 @@ public class UI_Handler : MonoBehaviour
         UpdateLaunchesLeftAmount();
         UpdateKeysCollectedAmount();
         UpdateResourcesCollectedAmount();
-        UpdateGamePhaseText();
     }
 
     private void Update()
@@ -53,8 +52,8 @@ public class UI_Handler : MonoBehaviour
         resourcesCollectedText.text = "Resources collected: " + inventory.ResourcesCollected;
     }
 
-    public void UpdateGamePhaseText()
+    public void SetActiveGameOverPanel()
     {
-        gamePhaseText.text = "Game Phase: " + GamePhaseManager.Instance.gamePhase;
+        if (launchTracker.launchesLeft <= 0) gameOverPanel.SetActive(true);
     }
 }
