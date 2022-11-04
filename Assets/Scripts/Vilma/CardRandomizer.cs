@@ -26,8 +26,6 @@ public class CardRandomizer : MonoBehaviour
 
     void DrawCards(int uiCard, int cardInt)
     {
-        UnityAction action;
-        
         cardUI[uiCard].CardImage.sprite = cards[cardInt].CardImage;
         cardUI[uiCard].CardName.text = cards[cardInt].CardName;
         cardUI[uiCard].CardDescription.text = cards[cardInt].CardDescription;
