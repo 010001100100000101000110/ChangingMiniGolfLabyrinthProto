@@ -7,6 +7,7 @@ public class MazeManager : MonoBehaviour
     [SerializeField] private GameObject[] cells;
     [SerializeField] private List<GameObject> nextRotatingCells;
     [SerializeField] private List<GameObject> cloneList;
+    [SerializeField] private List<GameObject> pickAndSwapList;
 
     Helper helper;
     private int randomNum;
@@ -33,6 +34,11 @@ public class MazeManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && GamePhaseManager.Instance.gamePhase == GamePhaseManager.GamePhase.cardPhase)
+        {
+            PickAndSwapCells();
         }
     }
 
@@ -116,5 +122,20 @@ public class MazeManager : MonoBehaviour
         }
 
         cloneList.Clear();
+    }
+
+    public void PickAndSwapCells()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+            out hit, Mathf.Infinity))
+        {
+            if (hit.transform.CompareTag("Ground"))
+            {
+                GameObject objectToAdd = hit.transform.gameObject;
+                pickAndSwapList.Add(objectToAdd);
+            }
+        }
     }
 }
