@@ -7,6 +7,7 @@ public class GamePhaseManager : MonoBehaviour
 {
     public static GamePhaseManager Instance;
     EventMethods eventMethods;
+    UI_Handler uiHandler;
 
     public enum GamePhase { cardPhase, movePhase, labyrinthMovePhase};
     public GamePhase gamePhase;
@@ -24,7 +25,11 @@ public class GamePhaseManager : MonoBehaviour
         eventMethods = FindObjectOfType<EventMethods>();
     }
 
-    
+    private void Start()
+    {
+        uiHandler = FindObjectOfType<UI_Handler>();
+    }
+
     public void UpdateGamePhase(GamePhase newState)
     {
         gamePhase = newState;
@@ -39,5 +44,6 @@ public class GamePhaseManager : MonoBehaviour
                 eventMethods.MazeRotate();
                 break;
         }
+        uiHandler.UpdateGamePhaseText();
     }
 }

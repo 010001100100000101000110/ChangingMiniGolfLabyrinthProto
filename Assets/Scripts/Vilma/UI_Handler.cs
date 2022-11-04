@@ -9,6 +9,7 @@ public class UI_Handler : MonoBehaviour
     [SerializeField] TMP_Text launchesLeftText;
     [SerializeField] TMP_Text keysCollectedText;
     [SerializeField] TMP_Text resourcesCollectedText;
+    [SerializeField] TMP_Text gamePhaseText;
     [SerializeField] Image launchPowerFillImage;
     [SerializeField] GameObject gameOverPanel;
     
@@ -20,6 +21,7 @@ public class UI_Handler : MonoBehaviour
         UpdateLaunchesLeftAmount();
         UpdateKeysCollectedAmount();
         UpdateResourcesCollectedAmount();
+        UpdateGamePhaseText();
     }
 
     void Update()
@@ -50,5 +52,10 @@ public class UI_Handler : MonoBehaviour
     public void SetActiveGameOverPanel()
     {
         if (helper.launchTracker.launchesLeft <= 0) gameOverPanel.SetActive(true);
+    }
+
+    public void UpdateGamePhaseText()
+    {
+        gamePhaseText.text = "Game Phase: " + GamePhaseManager.Instance.gamePhase;
     }
 }
