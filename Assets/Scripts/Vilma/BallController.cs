@@ -18,6 +18,7 @@ public class BallController : MonoBehaviour
     float currentAngularDrag;
     [SerializeField] float launchForce;
     [SerializeField] float maxPullDistance;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();        
@@ -71,6 +72,8 @@ public class BallController : MonoBehaviour
             helper.eventMethods.BallLaunched();
         }         
     }
+
+
     void StopBallVelocity()
     {
         if (isGrounded)

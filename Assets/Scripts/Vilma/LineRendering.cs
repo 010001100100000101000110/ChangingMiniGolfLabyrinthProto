@@ -32,4 +32,5 @@ public class LineRendering : MonoBehaviour
         lineRenderer.SetPosition(0, helper.controller.transform.position);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~3)) lineRenderer.SetPosition(1, hit.point);
     }
+
 }

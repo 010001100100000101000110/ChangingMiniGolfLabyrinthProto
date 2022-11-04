@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e09efa595ceee24fbd225ae8b5b8cb5, type: 3}
   m_Name: SwapCardProperties
   m_EditorClassIdentifier: 
-  cardName: Swap Card
-  cardDescription: Swap places of two cells
-  cardImage: {fileID: 21300000, guid: 756e0d029575a21449b019891b2f559c, type: 3}
+  CardName: swap
+  CardDescription: swap places of two cells
+  CardImage: {fileID: 21300000, guid: 756e0d029575a21449b019891b2f559c, type: 3}
+  CardEvent: {fileID: 11400000, guid: 594ec7c0f49ab4b42a61ccfe6b18fdb8, type: 2}
