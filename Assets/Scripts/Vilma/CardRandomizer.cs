@@ -2,17 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class CardRandomizer : MonoBehaviour
 {
-    [SerializeField] ScriptableObject[] cards;
+    [SerializeField] SOCardProperties[] cards;
+    [SerializeField] UICardProperties[] cardUI;
 
-    [SerializeField] Image cardImage1;
-    [SerializeField] Image cardImage2;
-    [SerializeField] Image cardImage3;
 
-    void RandomizeCards()
+    public void RandomizeCards()
     {
-        //cardImage1.sprite = cards[Random.RandomRange(0,4)].cardim
+        List<int> randomNumbers = new List<int>() { 0, 1, 2, 3 };
+
+        for (int i = 0; i < 3; i++)        
+        {
+            int number = randomNumbers[Random.Range(0, randomNumbers.Count)];    
+            DrawCards(i, number);
+            
+            randomNumbers.Remove(number);
+
+        }
+    }
+
+    void DrawCards(int uiCard, int cardInt)
+    {
+        cardUI[uiCard].CardImage.sprite = cards[cardInt].CardImage;
+        cardUI[uiCard].CardName.text = cards[cardInt].CardName;
+        cardUI[uiCard].CardDescription.text = cards[cardInt].CardDescription;
+        cardUI[uiCard].CardButton.onClick.AddListener(delegate { CardEventProperties(cardInt); });
+    }
+
+    void CardEventProperties(int cardInt)
+    {
+        cards[cardInt].CardEvent?.Raise();
     }
 }

@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 [CreateAssetMenu(fileName = "CardProperties", menuName = "ScriptableObjects/CardProperties")]
-public class SOProperties : ScriptableObject
+public class SOCardProperties : ScriptableObject
 {
-    [SerializeField] string cardName;
-    [SerializeField] string cardDescription;
-    [SerializeField] public Sprite cardImage;
+    public string CardName;
+    public string CardDescription;
+    public Sprite CardImage;
+    public GameEvent CardEvent;
 }
