@@ -313,7 +313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143560942}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.16, y: 0, z: 4.92}
+  m_LocalPosition: {x: -4.16, y: -0.33, z: 4.92}
   m_LocalScale: {x: 34.888, y: 0.2, z: 22.72896}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1782,6 +1782,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1806013922}
   - component: {fileID: 1806013921}
+  - component: {fileID: 1806013923}
   m_Layer: 0
   m_Name: MazeManager
   m_TagString: Untagged
@@ -1820,8 +1821,6 @@ MonoBehaviour:
   - {fileID: 65619003}
   nextRotatingCells: []
   cloneList: []
-  pickAndSwapList: []
-  originalMat: {fileID: 2100000, guid: 7cca5dbdfa581a94cbde07f0a9ed9163, type: 2}
   transparentMat: {fileID: 2100000, guid: 0f69d51b6e81c704c9299ce2e8a1a2d3, type: 2}
 --- !u!4 &1806013922
 Transform:
@@ -1831,13 +1830,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806013920}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.670217, y: -2.3330011, z: 4.6888776}
+  m_LocalPosition: {x: 3.670227, y: -2.3330078, z: 4.6888776}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1460632467}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1806013923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806013920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06049b6c2509a6f43a1f964b0ccb65aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellList: []
 --- !u!1 &1843854427 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8452714627700374503, guid: ddb7054f337ca4740ac458288da098be, type: 3}
@@ -4733,7 +4745,8 @@ MonoBehaviour:
   OnTryAgain: {fileID: 11400000, guid: a880359db3753db4fad5a1408ab8a51c, type: 2}
   OnChooseCard: {fileID: 11400000, guid: 94fef8189a276e24cbfb2e400ac3597d, type: 2}
   OnCardChosen: {fileID: 11400000, guid: c2749d91f97e453428e08ddc89fbf03a, type: 2}
-  OnMazeRotate: {fileID: 11400000, guid: b41568ae2eef4e848bb232418cb788cb, type: 2}
+  OnMazeRotate: {fileID: 11400000, guid: b8acfe6811762c54d920a693f08eae02, type: 2}
+  OnSwapCells: {fileID: 11400000, guid: 594ec7c0f49ab4b42a61ccfe6b18fdb8, type: 2}
 --- !u!4 &6749390573108350587
 Transform:
   m_ObjectHideFlags: 0
@@ -4978,6 +4991,7 @@ GameObject:
   - component: {fileID: 6749390573198517947}
   - component: {fileID: 6749390573198517946}
   - component: {fileID: 6749390573198517944}
+  - component: {fileID: 6749390573198518597}
   - component: {fileID: 6749390573198518596}
   m_Layer: 0
   m_Name: EventListener
@@ -5232,7 +5246,59 @@ MonoBehaviour:
   gameEvent: {fileID: 11400000, guid: 594ec7c0f49ab4b42a61ccfe6b18fdb8, type: 2}
   response:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1806013923}
+        m_TargetAssemblyTypeName: CellManipulator, Assembly-CSharp
+        m_MethodName: SelectCell
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1806013923}
+        m_TargetAssemblyTypeName: CellManipulator, Assembly-CSharp
+        m_MethodName: SwapCells
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6749390573198518597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6749390573198517951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e14d7779099f8742bcd47505890b2b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: b8acfe6811762c54d920a693f08eae02, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1806013921}
+        m_TargetAssemblyTypeName: MazeManager, Assembly-CSharp
+        m_MethodName: RotateCells
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6749390573199646760
 MonoBehaviour:
   m_ObjectHideFlags: 0
