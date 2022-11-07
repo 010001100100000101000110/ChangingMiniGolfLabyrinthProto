@@ -14,7 +14,6 @@ public class MazeManager : MonoBehaviour
     private int randomNum2;
     private float[] randomRotation = new float[] { 90f, 180f, 270f };
 
-    [SerializeField] private Material originalMat;
     [SerializeField] private Material transparentMat;
     private GameObject showRotationObject;
 
