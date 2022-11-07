@@ -30,6 +30,16 @@ public class GamePhaseManager : MonoBehaviour
         uiHandler = FindObjectOfType<UI_Handler>();
     }
 
+    //vilman juttu
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UpdateGamePhase(GamePhase.cardPhase);
+        }
+    }
+
+
     public void UpdateGamePhase(GamePhase newState)
     {
         gamePhase = newState;
@@ -37,6 +47,7 @@ public class GamePhaseManager : MonoBehaviour
         switch (newState)
         {
             case GamePhase.cardPhase:
+                eventMethods.ActivateCardPhase();
                 break;
             case GamePhase.movePhase:
                 break;

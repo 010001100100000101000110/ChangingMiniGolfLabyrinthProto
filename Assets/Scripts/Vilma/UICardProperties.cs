@@ -10,8 +10,5 @@ public class UICardProperties : MonoBehaviour
     public Image CardImage;
     public Button CardButton;
     public TMP_Text CardName;
-    public TMP_Text CardDescription;
-    public UnityAction action;
-
-     
+    public TMP_Text CardDescription;     
 }

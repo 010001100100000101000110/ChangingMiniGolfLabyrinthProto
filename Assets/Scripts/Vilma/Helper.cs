@@ -8,6 +8,8 @@ public class Helper : MonoBehaviour
     public EventMethods eventMethods;
     public Inventory inventory;
     public LaunchTracker launchTracker;
+    public UI_Handler uiHandler;
+    public PlayerCardInventory playerCardInventory;
 
     void Awake()
     {
@@ -15,5 +17,7 @@ public class Helper : MonoBehaviour
         eventMethods = FindObjectOfType<EventMethods>();
         inventory = FindObjectOfType<Inventory>();
         launchTracker = FindObjectOfType<LaunchTracker>();
+        uiHandler = FindObjectOfType<UI_Handler>();
+        playerCardInventory = FindObjectOfType<PlayerCardInventory>();
     }
 }
