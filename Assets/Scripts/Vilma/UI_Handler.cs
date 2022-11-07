@@ -84,7 +84,8 @@ public class UI_Handler : MonoBehaviour
             cardProperties.CardDescription.text = helper.playerCardInventory.cardInventory[i].CardDescription;
             cardProperties.CardButton.onClick.AddListener(DeactivatePlayCardPanel);
             Debug.Log(i);
-            cardProperties.CardButton.onClick.AddListener(delegate { AddCardEventListenerToButton(helper.playerCardInventory.cardInventory[0]); });
+            cardProperties.CardButton.onClick.AddListener(delegate { AddCardEventListenerToButton(helper.playerCardInventory.cardInventory[i]); });
+            Debug.Log(i);
         }
     }
 
