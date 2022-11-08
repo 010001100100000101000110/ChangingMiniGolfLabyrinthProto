@@ -101,8 +101,7 @@ public class UI_Handler : MonoBehaviour
         for (int i = 0; i < cardUI.Count; i++)
         {
             cardUI[i].SetActive(false);
-        }
-        
+        }        
     }
 
 

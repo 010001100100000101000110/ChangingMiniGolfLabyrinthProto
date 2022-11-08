@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    [SerializeField] GameObject selected;
+    GameObject selected;
     Rigidbody rigidbody;
 
     Helper helper;
 
-    [SerializeField] bool canLaunch;
+    bool canLaunch;
     public bool ballSelected { get; private set; }
     bool isGrounded;
 
