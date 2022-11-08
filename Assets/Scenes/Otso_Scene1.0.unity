@@ -1850,6 +1850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellList: []
+  originalColor: {r: 1, g: 0.5372549, b: 0, a: 0}
 --- !u!1 &1843854427 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8452714627700374503, guid: ddb7054f337ca4740ac458288da098be, type: 3}

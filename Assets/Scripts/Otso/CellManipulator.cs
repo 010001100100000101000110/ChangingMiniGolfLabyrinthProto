@@ -5,7 +5,7 @@ using UnityEngine;
 public class CellManipulator : MonoBehaviour
 {
     [SerializeField] private List<Transform> cellList;
-
+    [SerializeField] private Color originalColor;
     
     void Update()
     {
@@ -27,7 +27,10 @@ public class CellManipulator : MonoBehaviour
             {
                 Debug.Log("Cell added to cell list");
                 Transform transformToAdd = hit.transform;
+                transformToAdd.gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
                 cellList.Add(transformToAdd);
+
+                SwapCells();
             }
         }
     }
@@ -45,6 +48,11 @@ public class CellManipulator : MonoBehaviour
             cell2.position = tempPos;
 
             Debug.Log("Cells swapped");
+
+            foreach (Transform cell in cellList)
+            {
+                cell.gameObject.GetComponent<MeshRenderer>().material.color = originalColor;
+            }
             cellList.Clear();
         }
     }
