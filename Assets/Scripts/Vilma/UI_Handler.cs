@@ -6,19 +6,25 @@ using TMPro;
 
 public class UI_Handler : MonoBehaviour
 {
+    [Header("LaunchPowerIndicator")]
+    [SerializeField] Image launchPowerFillImage;
+
+    [Header("UI Texts")]
+
     [SerializeField] TMP_Text launchesLeftText;
     [SerializeField] TMP_Text keysCollectedText;
     [SerializeField] TMP_Text resourcesCollectedText;
     [SerializeField] TMP_Text gamePhaseText;
 
-    [SerializeField] Image launchPowerFillImage;
+    [Header("Inventory card image and card button prefabs")]
     [SerializeField] Image cardImage;
-
     [SerializeField] GameObject playCardButton;
+
+    [Header("Panels and their child layouts")]
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] GameObject playCardPanel;
     [SerializeField] GameObject playCardPanelLayout;
-    [SerializeField] GameObject cardInventoryPanel;
+    [SerializeField] GameObject cardInventoryLayout;
     
     Helper helper;
 
@@ -68,11 +74,18 @@ public class UI_Handler : MonoBehaviour
 
     public void AddCardImageToInventory(SOCardProperties card)
     {
-        Image image = Instantiate(cardImage, cardInventoryPanel.transform);
+        Image image = Instantiate(cardImage, cardInventoryLayout.transform);
         image.sprite = card.CardImage;
     }
 
-  
+    public void RemoveCardImageFromInventory(SOCardProperties card)
+    {
+        Image[] images = cardInventoryLayout.GetComponentsInChildren<Image>();
+        for (int i = 0; i < images.Length; i++)
+        {
+            if (images[i].sprite.name == card.CardImage.name) Destroy(images[i]);
+        }
+    }
 
     public void PresentCardsFromInventory()
     {
@@ -106,14 +119,5 @@ public class UI_Handler : MonoBehaviour
     void DeactivatePlayCardPanel()
     {
         playCardPanel.SetActive(false);
-    }
-
-    public void RemoveCardImageFromInventory(SOCardProperties card)
-    {
-        Image[] images = cardInventoryPanel.GetComponentsInChildren<Image>();
-        for (int i = 0; i < images.Length; i++)
-        {
-            if (images[i].sprite.name == card.CardImage.name) Destroy(images[i]);
-        }
-    }
+    }    
 }
