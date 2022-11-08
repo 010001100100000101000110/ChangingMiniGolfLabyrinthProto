@@ -93,7 +93,6 @@ public class UI_Handler : MonoBehaviour
 
     void AddCardEventListenerToButton(SOCardProperties card, List<GameObject> cardUI)
     {
-        Debug.Log(card.name);
         card.CardEvent?.Raise();
         helper.playerCardInventory.RemoveCardFromInventory(card);
         RemoveCardImageFromInventory(card);
@@ -103,7 +102,6 @@ public class UI_Handler : MonoBehaviour
             cardUI[i].SetActive(false);
         }        
     }
-
 
     void DeactivatePlayCardPanel()
     {
