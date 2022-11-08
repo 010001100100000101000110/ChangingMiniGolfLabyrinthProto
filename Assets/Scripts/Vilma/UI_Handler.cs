@@ -72,32 +72,51 @@ public class UI_Handler : MonoBehaviour
         image.sprite = card.CardImage;
     }
 
+  
+
     public void PresentCardsFromInventory()
     {
+        List<GameObject> cards = new List<GameObject>();
         for (int i = 0; i < helper.playerCardInventory.cardInventory.Count; i++)
         {
-            GameObject card = Instantiate(playCardButton, playCardPanelLayout.transform);
-
+            GameObject card = Instantiate(playCardButton, playCardPanelLayout.transform);            
             UICardProperties cardProperties = card.GetComponent<UICardProperties>();
+            cards.Add(card);
             cardProperties.CardImage.sprite = helper.playerCardInventory.cardInventory[i].CardImage;
             cardProperties.CardName.text = helper.playerCardInventory.cardInventory[i].CardName;
             cardProperties.CardDescription.text = helper.playerCardInventory.cardInventory[i].CardDescription;
             cardProperties.CardButton.onClick.AddListener(DeactivatePlayCardPanel);
-            Debug.Log(i);
-            cardProperties.CardButton.onClick.AddListener(delegate { AddCardEventListenerToButton(helper.playerCardInventory.cardInventory[i]); });
-            Debug.Log(i);
+            int number = i;
+            cardProperties.CardButton.onClick.AddListener(delegate { AddCardEventListenerToButton(helper.playerCardInventory.cardInventory[number], cards); });
         }
     }
 
-    //MIKS SE EI KUTSU TOTA METODIA
-    void AddCardEventListenerToButton(SOCardProperties card)
+    void AddCardEventListenerToButton(SOCardProperties card, List<GameObject> cardUI)
     {
         Debug.Log(card.name);
         card.CardEvent?.Raise();
+        helper.playerCardInventory.RemoveCardFromInventory(card);
+        RemoveCardImageFromInventory(card);
+
+        for (int i = 0; i < cardUI.Count; i++)
+        {
+            cardUI[i].SetActive(false);
+        }
+        
     }
+
 
     void DeactivatePlayCardPanel()
     {
         playCardPanel.SetActive(false);
+    }
+
+    public void RemoveCardImageFromInventory(SOCardProperties card)
+    {
+        Image[] images = cardInventoryPanel.GetComponentsInChildren<Image>();
+        for (int i = 0; i < images.Length; i++)
+        {
+            if (images[i].sprite.name == card.CardImage.name) Destroy(images[i]);
+        }
     }
 }
