@@ -2996,7 +2996,12 @@ MonoBehaviour:
   resourcesCollectedText: {fileID: 6749390572095214133}
   gamePhaseText: {fileID: 1519506068}
   launchPowerFillImage: {fileID: 6749390572572488104}
+  cardImage: {fileID: 0}
+  playCardButton: {fileID: 0}
   gameOverPanel: {fileID: 6749390571969504227}
+  playCardPanel: {fileID: 0}
+  playCardPanelLayout: {fileID: 0}
+  cardInventoryPanel: {fileID: 0}
 --- !u!4 &6749390571649439663
 Transform:
   m_ObjectHideFlags: 0
@@ -4748,6 +4753,7 @@ MonoBehaviour:
   OnCardChosen: {fileID: 11400000, guid: c2749d91f97e453428e08ddc89fbf03a, type: 2}
   OnMazeRotate: {fileID: 11400000, guid: b8acfe6811762c54d920a693f08eae02, type: 2}
   OnSwapCells: {fileID: 11400000, guid: 594ec7c0f49ab4b42a61ccfe6b18fdb8, type: 2}
+  OnActivateCardPhase: {fileID: 11400000, guid: bbd13534e22d62841b1082e1f458956c, type: 2}
 --- !u!4 &6749390573108350587
 Transform:
   m_ObjectHideFlags: 0
@@ -5316,6 +5322,8 @@ MonoBehaviour:
   eventMethods: {fileID: 0}
   inventory: {fileID: 0}
   launchTracker: {fileID: 0}
+  uiHandler: {fileID: 0}
+  playerCardInventory: {fileID: 0}
 --- !u!4 &6749390573199646761
 Transform:
   m_ObjectHideFlags: 0
