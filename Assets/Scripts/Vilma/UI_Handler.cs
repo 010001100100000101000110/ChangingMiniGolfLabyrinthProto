@@ -35,6 +35,13 @@ public class UI_Handler : MonoBehaviour
         UpdateKeysCollectedAmount();
         UpdateResourcesCollectedAmount();
         UpdateGamePhaseText();
+        ResetUI();
+    }
+
+    void ResetUI()
+    {
+        gameOverPanel.SetActive(false);
+        playCardPanel.SetActive(false);
     }
 
     void Update()
