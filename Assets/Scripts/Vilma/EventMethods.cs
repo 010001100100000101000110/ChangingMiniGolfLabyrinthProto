@@ -12,7 +12,7 @@ public class EventMethods : MonoBehaviour
     [SerializeField] GameEvent OnChooseCard;
     [SerializeField] GameEvent OnCardChosen;
     [SerializeField] GameEvent OnMazeRotate;
-    [SerializeField] GameEvent OnActivateCardPhase;
+    [SerializeField] GameEvent OnSwapCells;
  
 
     public void ResourceCollected()
@@ -55,8 +55,8 @@ public class EventMethods : MonoBehaviour
         OnMazeRotate?.Raise();
     }
 
-    public void ActivateCardPhase()
+    public void SwapCells()
     {
-        OnActivateCardPhase?.Raise();
+        OnSwapCells?.Raise();
     }
 }
