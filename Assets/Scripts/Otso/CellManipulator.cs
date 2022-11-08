@@ -48,17 +48,9 @@ public class CellManipulator : MonoBehaviour
             cell2.position = tempPos;
 
             Debug.Log("Cells swapped");
-            ResetColor(cellList);
+            CellHelper.ChangeColor(cellList, originalColor);
             
             cellList.Clear();
-        }
-    }
-
-    public void ResetColor<T>(List<T> list) where T: Component
-    {
-        foreach (T element in list)
-        {
-            element.GetComponent<MeshRenderer>().material.color = originalColor;
         }
     }
 }

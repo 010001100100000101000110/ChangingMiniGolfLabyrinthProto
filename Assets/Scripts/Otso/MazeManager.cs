@@ -88,10 +88,10 @@ public class MazeManager : MonoBehaviour
     {
         foreach (GameObject cell in nextRotatingCells)
         {
-            showRotationObject = Instantiate(cell, cell.transform.position, Quaternion.Euler(0, 90, 0));
+            showRotationObject = Instantiate(cell.gameObject, cell.transform.position, Quaternion.Euler(0, 90, 0));
 
             MeshRenderer[] meshRenderers = showRotationObject.GetComponentsInChildren<MeshRenderer>();
-            foreach(MeshRenderer renederer in meshRenderers)
+            foreach (MeshRenderer renederer in meshRenderers)
             {
                 renederer.material = transparentMat;
             }

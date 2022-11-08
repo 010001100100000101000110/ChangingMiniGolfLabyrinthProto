@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CellHelper : MonoBehaviour
+public static class CellHelper
 {
-    // Start is called before the first frame update
-    void Start()
+    public static void ChangeColor<T>(List<T> list, Color color) where T : Component
     {
-        
+        foreach (T element in list)
+        {
+            element.GetComponent<MeshRenderer>().material.color = color;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void ChangeMaterial<T>(List<T> list, Material material) where T : MeshRenderer
     {
-        
+        foreach (T element in list)
+        {
+            element.GetComponent<MeshRenderer>().material = material;
+        }
     }
 }
