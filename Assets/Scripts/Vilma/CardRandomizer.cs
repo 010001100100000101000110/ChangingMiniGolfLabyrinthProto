@@ -6,38 +6,33 @@ using UnityEngine.Events;
 
 public class CardRandomizer : MonoBehaviour
 {
-    [SerializeField] SOCardProperties[] cards;
-    [SerializeField] UICardProperties[] cardUI;
+    public List<SOCardProperties> cards = new List<SOCardProperties>();
+    [SerializeField] List<UICardProperties> cardUI = new List<UICardProperties>();
 
     PlayerCardInventory cardInventory;
     void Start()
     {
         cardInventory = GetComponent<PlayerCardInventory>();
     }
-    public void RandomizeCards()
-    {
-        List<int> randomNumbers = new List<int>() { 0, 1, 2, 3 };
 
-        for (int i = 0; i < 3; i++)        
+    public List<SOCardProperties> GetRandomizedCards()
+    {
+        List<int> randomNumbers = new List<int>() { 0, 1, 2, 3, 4 };       
+
+        List<SOCardProperties> cards = new List<SOCardProperties>();
+
+        for (int i = 0; i < 3; i++)
         {
-            int number = randomNumbers[Random.Range(0, randomNumbers.Count)];    
-            DrawCards(i, number);
-            
+            int number = randomNumbers[Random.Range(0, randomNumbers.Count)];
+            cards.Add(this.cards[number]);
             randomNumbers.Remove(number);
         }
-    }
-
-    void DrawCards(int uiCard, int cardInt)
-    {
-        cardUI[uiCard].CardImage.sprite = cards[cardInt].CardImage;
-        cardUI[uiCard].CardName.text = cards[cardInt].CardName;
-        cardUI[uiCard].CardDescription.text = cards[cardInt].CardDescription;
-        cardUI[uiCard].CardButton.onClick.AddListener(delegate { cardInventory.AddCardToInventory(cards[cardInt]); });
+        return cards;
     }
 
     public void RemoveButtonListeners()
     {
-        for (int i = 0; i < cardUI.Length; i++)
+        for (int i = 0; i < cardUI.Count; i++)
         {
             cardUI[i].CardButton.onClick.RemoveAllListeners();
         }

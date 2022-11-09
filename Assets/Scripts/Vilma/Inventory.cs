@@ -20,7 +20,10 @@ public class Inventory : MonoBehaviour
     public void AddToResourcesCollected()
     {
         ResourcesCollected++;
-        if (ResourcesCollected >= amountToGetCard) helper.eventMethods.ChooseCard();
+        if (ResourcesCollected >= amountToGetCard)
+        {
+            helper.eventMethods.ChooseCard();
+        }
     }
 
     public void ResetInventory()

@@ -15,7 +15,6 @@ public class PlayerCardInventory : MonoBehaviour
     public void AddCardToInventory(SOCardProperties card)
     {
         cardInventory.Add(card);
-        helper.uiHandler.AddCardImageToInventory(card);
     }
 
     public void RemoveCardFromInventory(SOCardProperties card)

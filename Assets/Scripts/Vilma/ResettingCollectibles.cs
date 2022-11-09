@@ -25,6 +25,4 @@ public class ResettingCollectibles : MonoBehaviour
             resources[i].SetActive(true);
         }
     }
-
-
 }
