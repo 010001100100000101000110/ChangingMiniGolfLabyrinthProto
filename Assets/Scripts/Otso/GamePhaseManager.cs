@@ -9,7 +9,8 @@ public class GamePhaseManager : MonoBehaviour
     EventMethods eventMethods;
     UI_Handler uiHandler;
 
-    public enum GamePhase { cardPhase, movePhase, labyrinthMovePhase};
+    [Serializable]
+    public enum GamePhase { cardPhase, movePhase, labyrinthMovePhase, testiPhase }
     public GamePhase gamePhase;
 
     void Awake()
@@ -39,22 +40,28 @@ public class GamePhaseManager : MonoBehaviour
         }
     }
 
+    public void SetEnum(string newState)
+    {
+        gamePhase = (GamePhase)Enum.Parse(typeof(GamePhase), newState);
+    }
 
     public void UpdateGamePhase(GamePhase newState)
     {
-        gamePhase = newState;
+        Instance.gamePhase = newState;
 
         switch (newState)
         {
             case GamePhase.cardPhase:
-                eventMethods.ActivateCardPhase();
+                Instance.eventMethods.ActivateCardPhase();
                 break;
             case GamePhase.movePhase:
                 break;
             case GamePhase.labyrinthMovePhase:
-                eventMethods.MazeRotate();
+                Instance.eventMethods.MazeRotate();
+                break;
+            case GamePhase.testiPhase:
                 break;
         }
-        uiHandler.UpdateGamePhaseText();
+        Instance.uiHandler.UpdateGamePhaseText();
     }
 }

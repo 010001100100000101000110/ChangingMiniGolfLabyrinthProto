@@ -48,7 +48,7 @@ public class MazeManager : MonoBehaviour
         Debug.Log("RotateCells method called");
         if (GamePhaseManager.Instance.gamePhase != GamePhaseManager.GamePhase.labyrinthMovePhase)
         {
-             return;
+            return;
         }
         else
         {
@@ -60,22 +60,13 @@ public class MazeManager : MonoBehaviour
             ClearNextRotatingCellsList();
             PickRandomCells();
             ShowCellRotationInfo();
+
+            // Vaihdetaan GameState
             GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.cardPhase);
         }
     }
 
-    IEnumerator RotateCell(GameObject cell, Vector3 byAngle, float inTime)
-    {
-        Debug.Log("kiki");
-        var fromAngle = cell.transform.rotation;
-        var toAngle = Quaternion.Euler(cell.transform.eulerAngles + byAngle);
-
-        for (var t = 0f; t <= 1; t += Time.deltaTime/inTime)
-        {
-            transform.rotation = Quaternion.Slerp(fromAngle, toAngle, t);
-            yield return null;
-        }
-    }
+    
 
     private void ClearNextRotatingCellsList()
     {
