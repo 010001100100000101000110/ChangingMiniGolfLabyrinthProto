@@ -15,6 +15,7 @@ public class UI_Handler : MonoBehaviour
     [SerializeField] TMP_Text keysCollectedText;
     [SerializeField] TMP_Text resourcesCollectedText;
     [SerializeField] TMP_Text gamePhaseText;
+    
 
     [Header("Inventory card image and card button prefabs")]
     [SerializeField] Image cardImage;
@@ -98,7 +99,7 @@ public class UI_Handler : MonoBehaviour
             if (images[i].sprite.name == card.CardImage.name) Destroy(images[i]);
         }
     }
-
+ 
     void StartInventory()
     {
         for (int i = 0; i < helper.playerCardInventory.cardInventory.Count; i++)
