@@ -29,15 +29,16 @@ public class CellManipulator : MonoBehaviour
                 Transform transformToAdd = hit.transform;
                 transformToAdd.gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
                 cellList.Add(transformToAdd);
-
-                SwapCells();
             }
         }
     }
 
     public void SwapCells()
     {
-        if (cellList.Count < 2) return;
+        if (cellList.Count != 2)
+        {
+            return;
+        }
         else
         {
             Transform cell1 = cellList[0];
@@ -48,12 +49,26 @@ public class CellManipulator : MonoBehaviour
             cell2.position = tempPos;
 
             Debug.Log("Cells swapped");
+            CellHelper.ChangeColor(cellList, originalColor);
 
-            foreach (Transform cell in cellList)
-            {
-                cell.gameObject.GetComponent<MeshRenderer>().material.color = originalColor;
-            }
             cellList.Clear();
         }
     }
+
+    public void RotateCell()
+    {
+        if (cellList.Count != 1)
+        {
+            return;
+        }
+        else
+        {
+            GameObject cellToRotate = cellList[0].gameObject;
+
+            cellToRotate.transform.Rotate(0, 90, 0);
+            CellHelper.ChangeColor(cellList, originalColor);
+            cellList.Clear();
+        }
+    }
+
 }
