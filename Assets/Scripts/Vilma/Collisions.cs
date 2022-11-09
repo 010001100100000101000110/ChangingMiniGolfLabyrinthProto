@@ -24,7 +24,8 @@ public class Collisions : MonoBehaviour
         }
         if (collider.gameObject.tag == "Finish")
         {
-            
+            Debug.Log("doodoo ass");
+            eventMethods.Finish();
         }
     }
 }

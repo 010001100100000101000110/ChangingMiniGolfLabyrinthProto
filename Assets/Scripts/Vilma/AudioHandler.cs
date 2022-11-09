@@ -6,6 +6,8 @@ public class AudioHandler : MonoBehaviour
 {
     [SerializeField] AudioClip keyCollected;
     [SerializeField] AudioClip resourceCollected;
+    [SerializeField] AudioClip finishReached1;
+    [SerializeField] AudioClip finishReached2;
     AudioSource audioSource;
 
     void Start()
@@ -21,5 +23,10 @@ public class AudioHandler : MonoBehaviour
     public void PlayResourceCollectedSound()
     {
         audioSource.PlayOneShot(resourceCollected);
+    }
+
+    public void PlayFinishReachedSound()
+    {
+        audioSource.PlayOneShot(finishReached1);
     }
 }

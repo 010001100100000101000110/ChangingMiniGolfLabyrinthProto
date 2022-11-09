@@ -15,6 +15,7 @@ public class EventMethods : MonoBehaviour
     [SerializeField] GameEvent OnSwapCells;
     [SerializeField] GameEvent OnActivateCardPhase;
     [SerializeField] GameEvent OnRotateCell;
+    [SerializeField] GameEvent OnFinish;
  
 
     public void ResourceCollected()
@@ -70,5 +71,10 @@ public class EventMethods : MonoBehaviour
     public void RotateCell()
     {
         OnRotateCell?.Raise();
+    }
+
+    public void Finish()
+    {
+        OnFinish?.Raise();
     }
 }

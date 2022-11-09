@@ -15,7 +15,6 @@ public class GameFinish : MonoBehaviour
     {
         if (helper.inventory.KeysCollected >= helper.inventory.KeyAmountNeeded())
         {
-            Debug.Log(this.gameObject);
             this.gameObject.SetActive(true);
         }
     }

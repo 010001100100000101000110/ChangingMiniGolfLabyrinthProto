@@ -126,5 +126,13 @@ public class UI_Handler : MonoBehaviour
     void DeactivatePlayCardPanel()
     {
         playCardPanel.SetActive(false);
-    }    
+    }  
+    
+    public void ResetCardInventory()
+    {
+        for (var i = cardInventoryLayout.transform.childCount - 1; i >= 0; i--)
+        {
+            Object.Destroy(cardInventoryLayout.transform.GetChild(i).gameObject);
+        }
+    }
 }
