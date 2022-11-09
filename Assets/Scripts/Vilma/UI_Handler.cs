@@ -38,6 +38,7 @@ public class UI_Handler : MonoBehaviour
         UpdateResourcesCollectedAmount();
         UpdateGamePhaseText();
         ResetUI();
+        StartInventory();
     }
 
     void ResetUI()
@@ -95,6 +96,14 @@ public class UI_Handler : MonoBehaviour
         for (int i = 0; i < images.Length; i++)
         {
             if (images[i].sprite.name == card.CardImage.name) Destroy(images[i]);
+        }
+    }
+
+    void StartInventory()
+    {
+        for (int i = 0; i < helper.playerCardInventory.cardInventory.Count; i++)
+        {
+            AddCardImageToInventory(helper.playerCardInventory.cardInventory[i]);
         }
     }
 
