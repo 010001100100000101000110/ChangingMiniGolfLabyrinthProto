@@ -21,8 +21,10 @@ public class UI_Handler : MonoBehaviour
     [SerializeField] GameObject playCardButton;
 
     [Header("Panels and their child layouts")]
+    [SerializeField] GameObject inGamePanel;
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] GameObject playCardPanel;
+    [SerializeField] GameObject finishPanel;
     [SerializeField] GameObject playCardPanelLayout;
     [SerializeField] GameObject cardInventoryLayout;
     
@@ -40,8 +42,10 @@ public class UI_Handler : MonoBehaviour
 
     void ResetUI()
     {
+        inGamePanel.SetActive(true);
         gameOverPanel.SetActive(false);
         playCardPanel.SetActive(false);
+        finishPanel.SetActive(false);
     }
 
     void Update()
