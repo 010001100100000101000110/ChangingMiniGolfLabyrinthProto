@@ -10,6 +10,7 @@ public class Helper : MonoBehaviour
     public LaunchTracker launchTracker;
     public UI_Handler uiHandler;
     public PlayerCardInventory playerCardInventory;
+    public CardRandomizer cardRandomizer;
 
     void Awake()
     {
@@ -19,5 +20,6 @@ public class Helper : MonoBehaviour
         launchTracker = FindObjectOfType<LaunchTracker>();
         uiHandler = FindObjectOfType<UI_Handler>();
         playerCardInventory = FindObjectOfType<PlayerCardInventory>();
+        cardRandomizer = FindObjectOfType<CardRandomizer>();
     }
 }

@@ -15,7 +15,6 @@ public class UI_Handler : MonoBehaviour
     [SerializeField] TMP_Text keysCollectedText;
     [SerializeField] TMP_Text resourcesCollectedText;
     [SerializeField] TMP_Text gamePhaseText;
-    
 
     [Header("Inventory card image and card button prefabs")]
     [SerializeField] Image cardImage;
@@ -25,11 +24,14 @@ public class UI_Handler : MonoBehaviour
     [SerializeField] GameObject inGamePanel;
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] GameObject playCardPanel;
+    [SerializeField] GameObject pickCardPanel;
     [SerializeField] GameObject finishPanel;
     [SerializeField] GameObject playCardPanelLayout;
     [SerializeField] GameObject cardInventoryLayout;
     
     Helper helper;
+
+    public enum CardPresenting { Start, Randomized, Inventory}
 
     void Start()
     {
@@ -39,7 +41,7 @@ public class UI_Handler : MonoBehaviour
         UpdateResourcesCollectedAmount();
         UpdateGamePhaseText();
         ResetUI();
-        StartInventory();
+        PresentStartCards();
     }
 
     void ResetUI()
@@ -99,33 +101,78 @@ public class UI_Handler : MonoBehaviour
             if (images[i].sprite.name == card.CardImage.name) Destroy(images[i]);
         }
     }
- 
-    void StartInventory()
+
+    public void PresentStartCards()
     {
-        for (int i = 0; i < helper.playerCardInventory.cardInventory.Count; i++)
-        {
-            AddCardImageToInventory(helper.playerCardInventory.cardInventory[i]);
-        }
+        PresentCards(CardPresenting.Start);
+    }
+    public void PresentRandomizedCards()
+    {
+        PresentCards(CardPresenting.Randomized);
+    }
+    public void PresentInventoryCards()
+    {
+        PresentCards(CardPresenting.Inventory);
     }
 
-    public void PresentCardsFromInventory()
+    void PresentCards(CardPresenting type)
     {
-        List<GameObject> cards = new List<GameObject>();
-        for (int i = 0; i < helper.playerCardInventory.cardInventory.Count; i++)
+        List<SOCardProperties> cardList = new List<SOCardProperties>();
+        switch (type)
         {
-            GameObject card = Instantiate(playCardButton, playCardPanelLayout.transform);            
+            case CardPresenting.Start:
+                cardList = helper.cardRandomizer.cards;
+                pickCardPanel.SetActive(true);
+                break;
+            case CardPresenting.Randomized:
+                cardList = helper.cardRandomizer.GetRandomizedCards();
+                pickCardPanel.SetActive(true);
+                break;
+            case CardPresenting.Inventory:
+                cardList = helper.playerCardInventory.cardInventory;
+                playCardPanel.SetActive(true);
+                break;      
+        }         
+        List<GameObject> cards = new List<GameObject>();        
+
+        for (int i = 0; i < cardList.Count; i++)
+        {
+            GameObject card = Instantiate(playCardButton, playCardPanelLayout.transform);
             UICardProperties cardProperties = card.GetComponent<UICardProperties>();
             cards.Add(card);
-            cardProperties.CardImage.sprite = helper.playerCardInventory.cardInventory[i].CardImage;
-            cardProperties.CardName.text = helper.playerCardInventory.cardInventory[i].CardName;
-            cardProperties.CardDescription.text = helper.playerCardInventory.cardInventory[i].CardDescription;
-            cardProperties.CardButton.onClick.AddListener(DeactivatePlayCardPanel);
+            cardProperties.CardImage.sprite = cardList[i].CardImage;
+            cardProperties.CardName.text = cardList[i].CardName;
+            cardProperties.CardDescription.text = cardList[i].CardDescription;
             int number = i;
-            cardProperties.CardButton.onClick.AddListener(delegate { AddCardEventListenerToButton(helper.playerCardInventory.cardInventory[number], cards); });
+
+            if (type == CardPresenting.Start)
+            {
+                cardProperties.CardButton.onClick.AddListener(delegate { AddPickCardEventListener(cardList[number], cards); });
+            }
+            if (type == CardPresenting.Randomized)
+            {
+                cardProperties.CardButton.onClick.AddListener(delegate { AddPickCardEventListener(cardList[number], cards); });
+            }
+            if (type == CardPresenting.Inventory)
+            {
+                cardProperties.CardButton.onClick.AddListener(delegate { AddInventoryCardEventListener(cardList[number], cards); });
+            }    
         }
     }
 
-    void AddCardEventListenerToButton(SOCardProperties card, List<GameObject> cardUI)
+    void AddPickCardEventListener(SOCardProperties card, List<GameObject> cardUI)
+    {
+        AddCardImageToInventory(card);
+        helper.playerCardInventory.AddCardToInventory(card);
+
+        for (int i = 0; i < cardUI.Count; i++)
+        {
+            cardUI[i].SetActive(false);
+        }
+        pickCardPanel.SetActive(false);
+    }
+
+    void AddInventoryCardEventListener(SOCardProperties card, List<GameObject> cardUI)
     {
         card.CardEvent?.Raise();
         helper.playerCardInventory.RemoveCardFromInventory(card);
@@ -134,14 +181,9 @@ public class UI_Handler : MonoBehaviour
         for (int i = 0; i < cardUI.Count; i++)
         {
             cardUI[i].SetActive(false);
-        }        
-    }
-
-    void DeactivatePlayCardPanel()
-    {
+        }
         playCardPanel.SetActive(false);
-    }  
-    
+    }
     public void ResetCardInventory()
     {
         for (var i = cardInventoryLayout.transform.childCount - 1; i >= 0; i--)
