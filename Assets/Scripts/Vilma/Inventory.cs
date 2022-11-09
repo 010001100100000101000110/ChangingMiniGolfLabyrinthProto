@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
     public int KeysCollected { get; private set; }
     public int ResourcesCollected { get; private set; }
     [SerializeField] int amountToGetCard;
+    [SerializeField] int amountToActivateFinish;
     Helper helper;
     private void Start()
     {
@@ -26,5 +27,10 @@ public class Inventory : MonoBehaviour
     {
         KeysCollected = 0;
         ResourcesCollected = 0;
+    }
+
+    public int KeyAmountNeeded()
+    {
+        return amountToActivateFinish;
     }
 }
