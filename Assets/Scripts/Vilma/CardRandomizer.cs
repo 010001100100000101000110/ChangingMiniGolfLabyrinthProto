@@ -7,14 +7,6 @@ using UnityEngine.Events;
 public class CardRandomizer : MonoBehaviour
 {
     public List<SOCardProperties> cards = new List<SOCardProperties>();
-    [SerializeField] List<UICardProperties> cardUI = new List<UICardProperties>();
-
-    PlayerCardInventory cardInventory;
-    void Start()
-    {
-        cardInventory = GetComponent<PlayerCardInventory>();
-    }
-
     public List<SOCardProperties> GetRandomizedCards()
     {
         List<int> randomNumbers = new List<int>() { 0, 1, 2, 3, 4 };       
@@ -28,13 +20,5 @@ public class CardRandomizer : MonoBehaviour
             randomNumbers.Remove(number);
         }
         return cards;
-    }
-
-    public void RemoveButtonListeners()
-    {
-        for (int i = 0; i < cardUI.Count; i++)
-        {
-            cardUI[i].CardButton.onClick.RemoveAllListeners();
-        }
     }
 }
