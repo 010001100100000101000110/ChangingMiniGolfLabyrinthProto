@@ -6,13 +6,13 @@ public class CellManipulator : MonoBehaviour
 {
     [SerializeField] private List<Transform> cellList;
     [SerializeField] private Color originalColor;
+    private int maxListLength;
     
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && (GamePhaseManager.Instance.gamePhase == GamePhaseManager.GamePhase.cardPhase))
         {
             SelectCell();
-            //SwapCells();
         }
     }
 
@@ -40,40 +40,44 @@ public class CellManipulator : MonoBehaviour
 
     public void SwapCells()
     {
-        if (cellList.Count != 2)
-        {
-            return;
+            if (cellList.Count != 2)
+            {
+                return;
+            }
+            else
+            {
+                Transform cell1 = cellList[0];
+                Transform cell2 = cellList[1];
+
+                Vector3 tempPos = cell1.position;
+                cell1.position = cell2.position;
+                cell2.position = tempPos;
+
+                Debug.Log("Cells swapped");
+                CellHelper.ChangeColor(cellList, originalColor);
+
+                cellList.Clear();
+            GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.movePhase);
         }
-        else
-        {
-            Transform cell1 = cellList[0];
-            Transform cell2 = cellList[1];
-
-            Vector3 tempPos = cell1.position;
-            cell1.position = cell2.position;
-            cell2.position = tempPos;
-
-            Debug.Log("Cells swapped");
-            CellHelper.ChangeColor(cellList, originalColor);
-
-            cellList.Clear();
-        }
+        
     }
 
     public void RotateCell()
     {
-        if (cellList.Count != 1)
-        {
-            return;
-        }
-        else
-        {
-            GameObject cellToRotate = cellList[0].gameObject;
+            if (cellList.Count != 1)
+            {
+                return;
+            }
+            else
+            {
+                GameObject cellToRotate = cellList[0].gameObject;
 
-            cellToRotate.transform.Rotate(0, 90, 0);
-            CellHelper.ChangeColor(cellList, originalColor);
-            cellList.Clear();
+                cellToRotate.transform.Rotate(0, 90, 0);
+                CellHelper.ChangeColor(cellList, originalColor);
+                cellList.Clear();
+            GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.movePhase);
         }
+        
     }
 
 }

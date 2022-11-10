@@ -8,7 +8,7 @@ public class BallController : MonoBehaviour
     Rigidbody rigidbody;
     Helper helper;
 
-    [SerializeField]bool canLaunch;
+    public bool canLaunch { get; private set; }
     public bool ballSelected { get; private set; }
 
     public int launchAmount { get; private set; }
@@ -72,6 +72,7 @@ public class BallController : MonoBehaviour
             rigidbody.AddForce(trajectoryDir * force, ForceMode.Impulse);
             helper.eventMethods.BallLaunched();
 
+            Debug.Log("ASDfsd");
             // (Otson lisäys) Vaihdetaan GamePhase
             GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.labyrinthMovePhase);
         }         

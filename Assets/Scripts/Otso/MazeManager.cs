@@ -63,6 +63,7 @@ public class MazeManager : MonoBehaviour
 
             // Vaihdetaan GameState
             GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.cardPhase);
+            helper.uiHandler.UpdateGamePhaseText();
         }
     }
 

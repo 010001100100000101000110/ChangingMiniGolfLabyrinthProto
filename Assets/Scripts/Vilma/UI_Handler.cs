@@ -29,9 +29,10 @@ public class UI_Handler : MonoBehaviour
     [SerializeField] GameObject finishPanel;
     [SerializeField] GameObject playCardPanelLayout;
     [SerializeField] GameObject cardInventoryLayout;
+    [SerializeField] GameObject playCardOrMove;
     
     Helper helper;
-
+    [SerializeField] private InfoDescription tutorialText;
     public enum CardPresenting { Start, Randomized, Inventory}
 
     void Start()
@@ -108,6 +109,11 @@ public class UI_Handler : MonoBehaviour
         }
     }
 
+    public void ActivatePlayCardOrMovePanel()
+    {
+        playCardOrMove.SetActive(true);
+    }
+
     public void PresentStartCards()
     {
         PresentCards(CardPresenting.Start);
@@ -154,6 +160,8 @@ public class UI_Handler : MonoBehaviour
             if (type == CardPresenting.Start)
             {
                 cardProperties.CardButton.onClick.AddListener(delegate { AddPickCardEventListener(cardList[number], cards); });
+                cardProperties.CardButton.onClick.AddListener(delegate { UpdateTutorialText(tutorialText); });
+                cardProperties.CardButton.onClick.AddListener(delegate { playCardOrMove.SetActive(true); });
             }
             if (type == CardPresenting.Randomized)
             {
