@@ -6,12 +6,10 @@ public class BallController : MonoBehaviour
 {
     GameObject selected;
     Rigidbody rigidbody;
-
     Helper helper;
 
-    bool canLaunch;
+    [SerializeField]bool canLaunch;
     public bool ballSelected { get; private set; }
-    bool isGrounded;
 
     public int launchAmount { get; private set; }
     float currentDrag;
@@ -29,7 +27,7 @@ public class BallController : MonoBehaviour
 
     void Update()
     {
-        if (rigidbody.velocity.magnitude > 0 || !isGrounded) canLaunch = false;
+        if (rigidbody.velocity.magnitude > 0 || !IsGrounded()) canLaunch = false;
         if (canLaunch && (GamePhaseManager.Instance.gamePhase == GamePhaseManager.GamePhase.movePhase)) LaunchBallMode();
         if (!canLaunch) StopBallVelocity();
     }
@@ -79,7 +77,7 @@ public class BallController : MonoBehaviour
 
     void StopBallVelocity()
     {
-        if (isGrounded)
+        if (IsGrounded())
         {
             if (rigidbody.velocity.magnitude < 0.7 && rigidbody.velocity.magnitude > 0)
             {
@@ -114,13 +112,15 @@ public class BallController : MonoBehaviour
         return maxPullDistance; 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    bool IsGrounded()
     {
-        if (collision.collider.CompareTag("Ground")) isGrounded = true;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.collider.CompareTag("Ground")) isGrounded = false;
+        Ray ray = new Ray(transform.position, -Vector3.up);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 0.5f))
+        {
+            if (hit.collider.CompareTag("Ground")) return true;
+            else return false;
+        }
+        else return false;
     }
 }
