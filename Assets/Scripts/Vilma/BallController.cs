@@ -6,30 +6,31 @@ public class BallController : MonoBehaviour
 {
     GameObject selected;
     Rigidbody rigidbody;
-
     Helper helper;
 
-    bool canLaunch;
+    [SerializeField]bool canLaunch;
     public bool ballSelected { get; private set; }
-    bool isGrounded;
 
     public int launchAmount { get; private set; }
-    float currentDrag;
-    float currentAngularDrag;
+    float originalDrag;
+    float originalAngularDrag;
     [SerializeField] float launchForce;
     [SerializeField] float maxPullDistance;
 
+    Vector3 startPosition;
+
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();        
-        currentDrag = rigidbody.drag;
-        currentAngularDrag = rigidbody.angularDrag;
+        rigidbody = GetComponent<Rigidbody>();
+        originalDrag = rigidbody.drag;
+        originalAngularDrag = rigidbody.angularDrag;
         helper = FindObjectOfType<Helper>();
+        startPosition = transform.position;
     }
 
     void Update()
     {
-        if (rigidbody.velocity.magnitude > 0 || !isGrounded) canLaunch = false;
+        if (rigidbody.velocity.magnitude > 0 || !IsGrounded()) canLaunch = false;
         if (canLaunch && (GamePhaseManager.Instance.gamePhase == GamePhaseManager.GamePhase.movePhase)) LaunchBallMode();
         if (!canLaunch) StopBallVelocity();
     }
@@ -79,8 +80,9 @@ public class BallController : MonoBehaviour
 
     void StopBallVelocity()
     {
-        if (isGrounded)
+        if (IsGrounded())
         {
+            rigidbody.angularDrag = originalAngularDrag;
             if (rigidbody.velocity.magnitude < 0.7 && rigidbody.velocity.magnitude > 0)
             {
                 rigidbody.drag = 50;
@@ -88,8 +90,8 @@ public class BallController : MonoBehaviour
             }
             if (rigidbody.velocity.magnitude == 0)
             {
-                rigidbody.drag = currentDrag;
-                rigidbody.angularDrag = currentAngularDrag;
+                rigidbody.drag = originalDrag;
+                rigidbody.angularDrag = originalAngularDrag;
                 canLaunch = true;
                 helper.eventMethods.BallStopped();
             }
@@ -98,7 +100,9 @@ public class BallController : MonoBehaviour
 
     public void ResetPlayerPosition()
     {
-        this.transform.position = new Vector3(0, 0, 0);
+        this.transform.position = startPosition;
+        rigidbody.velocity = new Vector3(0, 0, 0);
+        rigidbody.angularDrag = 70000;
     }
     
     public float GetDistance()
@@ -114,13 +118,15 @@ public class BallController : MonoBehaviour
         return maxPullDistance; 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    bool IsGrounded()
     {
-        if (collision.collider.CompareTag("Ground")) isGrounded = true;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.collider.CompareTag("Ground")) isGrounded = false;
+        Ray ray = new Ray(transform.position, -Vector3.up);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 0.5f))
+        {
+            if (hit.collider.CompareTag("Ground")) return true;
+            else return false;
+        }
+        else return false;
     }
 }
