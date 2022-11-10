@@ -12,17 +12,20 @@ public class BallController : MonoBehaviour
     public bool ballSelected { get; private set; }
 
     public int launchAmount { get; private set; }
-    float currentDrag;
-    float currentAngularDrag;
+    float originalDrag;
+    float originalAngularDrag;
     [SerializeField] float launchForce;
     [SerializeField] float maxPullDistance;
 
+    Vector3 startPosition;
+
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();        
-        currentDrag = rigidbody.drag;
-        currentAngularDrag = rigidbody.angularDrag;
+        rigidbody = GetComponent<Rigidbody>();
+        originalDrag = rigidbody.drag;
+        originalAngularDrag = rigidbody.angularDrag;
         helper = FindObjectOfType<Helper>();
+        startPosition = transform.position;
     }
 
     void Update()
@@ -79,6 +82,7 @@ public class BallController : MonoBehaviour
     {
         if (IsGrounded())
         {
+            rigidbody.angularDrag = originalAngularDrag;
             if (rigidbody.velocity.magnitude < 0.7 && rigidbody.velocity.magnitude > 0)
             {
                 rigidbody.drag = 50;
@@ -86,8 +90,8 @@ public class BallController : MonoBehaviour
             }
             if (rigidbody.velocity.magnitude == 0)
             {
-                rigidbody.drag = currentDrag;
-                rigidbody.angularDrag = currentAngularDrag;
+                rigidbody.drag = originalDrag;
+                rigidbody.angularDrag = originalAngularDrag;
                 canLaunch = true;
                 helper.eventMethods.BallStopped();
             }
@@ -96,7 +100,9 @@ public class BallController : MonoBehaviour
 
     public void ResetPlayerPosition()
     {
-        this.transform.position = new Vector3(0, 0, 0);
+        this.transform.position = startPosition;
+        rigidbody.velocity = new Vector3(0, 0, 0);
+        rigidbody.angularDrag = 70000;
     }
     
     public float GetDistance()
