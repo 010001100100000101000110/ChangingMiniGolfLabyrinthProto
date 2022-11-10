@@ -23,12 +23,17 @@ public class CellManipulator : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            if (hit.transform.CompareTag("Ground"))
+            if (hit.transform.CompareTag("Ground") && cellList.Contains(hit.transform))
+            {
+                hit.transform.gameObject.GetComponent<MeshRenderer>().material.color = originalColor;
+                cellList.Remove(hit.transform);
+            }
+            else if (hit.transform.CompareTag("Ground") && cellList.Count <= 1)
             {
                 Debug.Log("Cell added to cell list");
                 Transform transformToAdd = hit.transform;
-                transformToAdd.gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
                 cellList.Add(transformToAdd);
+                CellHelper.ChangeColor(cellList, Color.green);
             }
         }
     }
