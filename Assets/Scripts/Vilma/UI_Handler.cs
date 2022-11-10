@@ -15,6 +15,7 @@ public class UI_Handler : MonoBehaviour
     [SerializeField] TMP_Text keysCollectedText;
     [SerializeField] TMP_Text resourcesCollectedText;
     [SerializeField] TMP_Text gamePhaseText;
+    [SerializeField] TMP_Text infoDescriptionText;
 
     [Header("Inventory card image and card button prefabs")]
     [SerializeField] Image cardImage;
@@ -85,6 +86,11 @@ public class UI_Handler : MonoBehaviour
     public void UpdateGamePhaseText()
     {
         gamePhaseText.text = "Game Phase: " + GamePhaseManager.Instance.gamePhase;
+    }
+
+    public void UpdateTutorialText(InfoDescription tutorialText)
+    {
+        infoDescriptionText.text = tutorialText.tutorialText;
     }
 
     public void AddCardImageToInventory(SOCardProperties card)

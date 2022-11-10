@@ -13,6 +13,8 @@ public class GamePhaseManager : MonoBehaviour
     public enum GamePhase { cardPhase, movePhase, labyrinthMovePhase, testiPhase }
     public GamePhase gamePhase;
 
+    public int turnIndex;
+
     void Awake()
     {
         if (Instance == null)
@@ -29,6 +31,7 @@ public class GamePhaseManager : MonoBehaviour
     private void Start()
     {
         uiHandler = FindObjectOfType<UI_Handler>();
+        
     }
 
     //vilman juttu
