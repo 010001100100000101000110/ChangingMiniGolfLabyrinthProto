@@ -144,7 +144,8 @@ public class UI_Handler : MonoBehaviour
                 cardList = helper.playerCardInventory.cardInventory;
                 playCardPanel.SetActive(true);
                 break;      
-        }         
+        }
+        playCardPanelLayout.SetActive(true);
         List<GameObject> cards = new List<GameObject>();        
 
         for (int i = 0; i < cardList.Count; i++)
@@ -204,5 +205,15 @@ public class UI_Handler : MonoBehaviour
         {
             Object.Destroy(cardInventoryLayout.transform.GetChild(i).gameObject);
         }
+    }
+
+    public void ResetCardsOnScreen()
+    {
+        for (int i = 0; i < playCardPanelLayout.transform.childCount; i++)
+        {
+            playCardPanelLayout.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        
     }
 }

@@ -4950,6 +4950,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1229787726}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7784517675775010869}
+        m_TargetAssemblyTypeName: UI_Handler, Assembly-CSharp
+        m_MethodName: ResetCardsOnScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 8405375593728589136}
         m_TargetAssemblyTypeName: GamePhaseManager, Assembly-CSharp
         m_MethodName: SetEnum
@@ -5804,8 +5828,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6749390571761251349}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.34, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.98, z: 1.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6190,6 +6214,7 @@ MonoBehaviour:
   OnFinish: {fileID: 11400000, guid: 6ba9a76703c801343bc78f0e34821cd6, type: 2}
   OnCardPlayed: {fileID: 11400000, guid: e67ee292c3a87d64182bbc5b925b20d6, type: 2}
   OnStopLabyrinthChange: {fileID: 11400000, guid: d383aef3923cd774db7def64cfdd68a6, type: 2}
+  OnTwoLaunchesInARow: {fileID: 11400000, guid: ebf42355949235b4aa85d5e96a886820, type: 2}
 --- !u!4 &6749390573108350587
 Transform:
   m_ObjectHideFlags: 0
@@ -6462,6 +6487,7 @@ GameObject:
   - component: {fileID: 6749390573198517944}
   - component: {fileID: 6749390573198518596}
   - component: {fileID: 6749390573198518602}
+  - component: {fileID: 6749390573198518603}
   - component: {fileID: 6749390573198518600}
   - component: {fileID: 6749390573198518599}
   - component: {fileID: 6749390573198518601}
@@ -6974,6 +7000,46 @@ MonoBehaviour:
       - m_Target: {fileID: 1806013921}
         m_TargetAssemblyTypeName: MazeManager, Assembly-CSharp
         m_MethodName: StopLabyrinthChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: e67ee292c3a87d64182bbc5b925b20d6, type: 2}
+        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6749390573198518603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6749390573198517951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e14d7779099f8742bcd47505890b2b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: ebf42355949235b4aa85d5e96a886820, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6749390571390422145}
+        m_TargetAssemblyTypeName: BallController, Assembly-CSharp
+        m_MethodName: TwoLaunchesInARow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

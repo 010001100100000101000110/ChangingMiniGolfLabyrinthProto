@@ -14,6 +14,8 @@ public class BallController : MonoBehaviour
     public int launchAmount { get; private set; }
     float originalDrag;
     float originalAngularDrag;
+    private bool twoLaunchesInARowCardPlayed = false;
+
     [SerializeField] float launchForce;
     [SerializeField] float maxPullDistance;
 
@@ -72,10 +74,23 @@ public class BallController : MonoBehaviour
             rigidbody.AddForce(trajectoryDir * force, ForceMode.Impulse);
             helper.eventMethods.BallLaunched();
 
-            Debug.Log("ASDfsd");
             // (Otson lisäys) Vaihdetaan GamePhase
-            GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.labyrinthMovePhase);
+            if (!twoLaunchesInARowCardPlayed)
+            {
+                GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.labyrinthMovePhase);
+            }
+            else if (twoLaunchesInARowCardPlayed)
+            {
+                twoLaunchesInARowCardPlayed = false;
+                return;
+            }
+            
         }         
+    }
+
+    public void TwoLaunchesInARow()
+    {
+        twoLaunchesInARowCardPlayed = true;
     }
 
 
