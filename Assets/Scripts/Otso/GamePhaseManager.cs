@@ -71,6 +71,7 @@ public class GamePhaseManager : MonoBehaviour
             case GamePhase.labyrinthMovePhase:
                 helper.uiHandler.UpdateGamePhaseText();
                 Instance.eventMethods.MazeRotate();
+                helper.mazeManager.EnableLabyrinthChange();
                 break;
         }
     }

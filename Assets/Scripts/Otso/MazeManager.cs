@@ -7,6 +7,7 @@ public class MazeManager : MonoBehaviour
     [SerializeField] private GameObject[] cells;
     [SerializeField] private List<GameObject> nextRotatingCells;
     [SerializeField] private List<GameObject> cloneList;
+    [SerializeField] private bool stopCardPlayed = false;
 
     Helper helper;
     private int randomNum;
@@ -45,29 +46,42 @@ public class MazeManager : MonoBehaviour
 
     public void RotateCells()
     {
-        Debug.Log("RotateCells method called");
-        if (GamePhaseManager.Instance.gamePhase != GamePhaseManager.GamePhase.labyrinthMovePhase)
+        if (!stopCardPlayed)
         {
-            return;
-        }
-        else
-        {
-            foreach (GameObject cell in nextRotatingCells)
+            Debug.Log("RotateCells method called");
+            if (GamePhaseManager.Instance.gamePhase != GamePhaseManager.GamePhase.labyrinthMovePhase)
             {
-                cell.gameObject.transform.Rotate(0, 90, 0);
-                Debug.Log("Cells rotated");
+                return;
             }
-            ClearNextRotatingCellsList();
-            PickRandomCells();
-            ShowCellRotationInfo();
+            else
+            {
+                foreach (GameObject cell in nextRotatingCells)
+                {
+                    cell.gameObject.transform.Rotate(0, 90, 0);
+                    Debug.Log("Cells rotated");
+                }
+                ClearNextRotatingCellsList();
+                PickRandomCells();
+                ShowCellRotationInfo();
 
-            // Vaihdetaan GameState
-            GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.cardPhase);
-            helper.uiHandler.UpdateGamePhaseText();
+                
+                
+            }
         }
+        // Vaihdetaan GameState
+        GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.cardPhase);
+        helper.uiHandler.UpdateGamePhaseText();
     }
 
-    
+    public void StopLabyrinthChange()
+    {
+        stopCardPlayed = true;
+    }
+
+    public void EnableLabyrinthChange()
+    {
+        stopCardPlayed = false;
+    }
 
     private void ClearNextRotatingCellsList()
     {

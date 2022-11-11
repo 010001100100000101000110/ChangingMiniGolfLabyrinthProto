@@ -17,7 +17,7 @@ public class EventMethods : MonoBehaviour
     [SerializeField] GameEvent OnRotateCell;
     [SerializeField] GameEvent OnFinish;
     [SerializeField] GameEvent OnCardPlayed;
- 
+    [SerializeField] GameEvent OnStopLabyrinthChange;
 
     public void ResourceCollected()
     {
@@ -82,5 +82,10 @@ public class EventMethods : MonoBehaviour
     public void CardPlayde()
     {
         OnCardPlayed?.Raise();
+    }
+
+    public void StopLabyrinthChange()
+    {
+        OnStopLabyrinthChange?.Raise();
     }
 }
