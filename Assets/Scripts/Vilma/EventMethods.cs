@@ -19,6 +19,7 @@ public class EventMethods : MonoBehaviour
     [SerializeField] GameEvent OnCardPlayed;
     [SerializeField] GameEvent OnStopLabyrinthChange;
     [SerializeField] GameEvent OnTwoLaunchesInARow;
+    [SerializeField] GameEvent OnLose;
 
     public void ResourceCollected()
     {
@@ -93,5 +94,10 @@ public class EventMethods : MonoBehaviour
     public void TwoLaunchesInARow()
     {
         OnTwoLaunchesInARow?.Raise();
+    }
+
+    public void Lose()
+    {
+        OnLose?.Raise();
     }
 }
