@@ -32,6 +32,7 @@ public class UI_Handler : MonoBehaviour
     
     Helper helper;
 
+
     public enum CardPresenting { Start, Randomized, Inventory}
 
     void Start()
@@ -162,7 +163,7 @@ public class UI_Handler : MonoBehaviour
             if (type == CardPresenting.Inventory)
             {
                 cardProperties.CardButton.onClick.AddListener(delegate { AddInventoryCardEventListener(cardList[number], cards); });
-            }    
+            }
         }
     }
 
