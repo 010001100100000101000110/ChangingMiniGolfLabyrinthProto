@@ -11,6 +11,7 @@ public class Helper : MonoBehaviour
     public UI_Handler uiHandler;
     public PlayerCardInventory playerCardInventory;
     public CardRandomizer cardRandomizer;
+    public MazeManager mazeManager;
 
     void Awake()
     {
@@ -21,5 +22,6 @@ public class Helper : MonoBehaviour
         uiHandler = FindObjectOfType<UI_Handler>();
         playerCardInventory = FindObjectOfType<PlayerCardInventory>();
         cardRandomizer = FindObjectOfType<CardRandomizer>();
+        mazeManager = FindObjectOfType<MazeManager>();
     }
 }

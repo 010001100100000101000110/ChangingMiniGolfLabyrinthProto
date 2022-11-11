@@ -7,14 +7,13 @@ public class GamePhaseManager : MonoBehaviour
 {
     public static GamePhaseManager Instance;
     EventMethods eventMethods;
-    UI_Handler uiHandler;
+    Helper helper;
 
     [Serializable]
     public enum GamePhase { cardPhase, movePhase, labyrinthMovePhase, testiPhase }
     public GamePhase gamePhase;
 
-    public int turnIndex;
-
+    
     void Awake()
     {
         if (Instance == null)
@@ -30,8 +29,7 @@ public class GamePhaseManager : MonoBehaviour
 
     private void Start()
     {
-        uiHandler = FindObjectOfType<UI_Handler>();
-        
+        helper = FindObjectOfType<Helper>();
     }
 
     //vilman juttu
@@ -39,7 +37,15 @@ public class GamePhaseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            UpdateGamePhase(GamePhase.cardPhase);
+            
+        }
+    }
+
+    public void CardPhaseCheck()
+    {
+        if (Instance.gamePhase == GamePhase.cardPhase)
+        {
+            Instance.eventMethods.ActivateCardPhase();
         }
     }
 
@@ -55,16 +61,18 @@ public class GamePhaseManager : MonoBehaviour
         switch (newState)
         {
             case GamePhase.cardPhase:
-                Instance.eventMethods.ActivateCardPhase();
+                CardPhaseCheck();
+                helper.uiHandler.ActivatePlayCardOrMovePanel();
+                helper.uiHandler.UpdateGamePhaseText();
                 break;
             case GamePhase.movePhase:
+                helper.uiHandler.UpdateGamePhaseText();
                 break;
             case GamePhase.labyrinthMovePhase:
+                helper.uiHandler.UpdateGamePhaseText();
                 Instance.eventMethods.MazeRotate();
-                break;
-            case GamePhase.testiPhase:
+                helper.mazeManager.EnableLabyrinthChange();
                 break;
         }
-        Instance.uiHandler.UpdateGamePhaseText();
     }
 }

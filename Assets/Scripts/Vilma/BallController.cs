@@ -8,12 +8,14 @@ public class BallController : MonoBehaviour
     Rigidbody rigidbody;
     Helper helper;
 
-    [SerializeField]bool canLaunch;
+    public bool canLaunch { get; private set; }
     public bool ballSelected { get; private set; }
 
     public int launchAmount { get; private set; }
     float originalDrag;
     float originalAngularDrag;
+    private bool twoLaunchesInARowCardPlayed = false;
+
     [SerializeField] float launchForce;
     [SerializeField] float maxPullDistance;
 
@@ -75,8 +77,22 @@ public class BallController : MonoBehaviour
             helper.eventMethods.BallLaunched();
 
             // (Otson lisäys) Vaihdetaan GamePhase
-            GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.labyrinthMovePhase);
+            if (!twoLaunchesInARowCardPlayed)
+            {
+                GamePhaseManager.Instance.UpdateGamePhase(GamePhaseManager.GamePhase.labyrinthMovePhase);
+            }
+            else if (twoLaunchesInARowCardPlayed)
+            {
+                twoLaunchesInARowCardPlayed = false;
+                return;
+            }
+            
         }         
+    }
+
+    public void TwoLaunchesInARow()
+    {
+        twoLaunchesInARowCardPlayed = true;
     }
 
 
