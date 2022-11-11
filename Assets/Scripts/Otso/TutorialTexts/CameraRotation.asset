@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bb401136d2b8b04bafb0b2ca54cc056, type: 3}
-  m_Name: RotateCard
+  m_Name: CameraRotation
   m_EditorClassIdentifier: 
-  tutorialText: Pick a cell and rotate it
+  tutorialText: Use the arrows to rotate level angle
