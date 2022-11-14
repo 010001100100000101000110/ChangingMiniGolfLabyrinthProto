@@ -190,21 +190,21 @@ public class UI_Handler : MonoBehaviour
         {
             cardUI[i].SetActive(false);
             helper.timeManager.SetTimeScaleTo(1);
+            
         }
         pickCardPanel.SetActive(false);
     }
 
     void AddInventoryCardEventListener(SOCardProperties card, List<GameObject> cardUI)
-    {
-        card.CardEvent?.Raise();
-        helper.playerCardInventory.RemoveCardFromInventory(card);
-        RemoveCardImageFromInventory(card);
-
+    {     
         for (int i = 0; i < cardUI.Count; i++)
         {
             cardUI[i].SetActive(false);
             helper.timeManager.SetTimeScaleTo(1);
         }
+        card.CardEvent?.Raise();
+        helper.playerCardInventory.RemoveCardFromInventory(card);
+        RemoveCardImageFromInventory(card);
         playCardPanel.SetActive(false);
     }
     public void ResetCardInventory()
