@@ -118,19 +118,21 @@ public class UI_Handler : MonoBehaviour
     public void PresentStartCards()
     {
         PresentCards(CardPresenting.Start);
+        helper.timeManager.SetTimeScaleTo(0);
     }
     public void PresentRandomizedCards()
     {
         PresentCards(CardPresenting.Randomized);
+        helper.timeManager.SetTimeScaleTo(0);
     }
     public void PresentInventoryCards()
     {
         PresentCards(CardPresenting.Inventory);
+        helper.timeManager.SetTimeScaleTo(0);
     }
 
     void PresentCards(CardPresenting type)
-    {
-        helper.timeManager.SetTimeScaleTo(0);
+    {        
         List<SOCardProperties> cardList = new List<SOCardProperties>();
         switch (type)
         {
@@ -175,6 +177,7 @@ public class UI_Handler : MonoBehaviour
                 cardProperties.CardButton.onClick.AddListener(delegate { AddInventoryCardEventListener(cardList[number], cards); });
             }    
         }
+        
     }
 
     void AddPickCardEventListener(SOCardProperties card, List<GameObject> cardUI)
@@ -186,7 +189,6 @@ public class UI_Handler : MonoBehaviour
         {
             cardUI[i].SetActive(false);
             helper.timeManager.SetTimeScaleTo(1);
-
         }
         pickCardPanel.SetActive(false);
     }
