@@ -427,6 +427,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 264953283}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &320352339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3362,6 +3374,9 @@ MonoBehaviour:
   OnActivateCardPhase: {fileID: 11400000, guid: bbd13534e22d62841b1082e1f458956c, type: 2}
   OnRotateCell: {fileID: 11400000, guid: b41568ae2eef4e848bb232418cb788cb, type: 2}
   OnFinish: {fileID: 11400000, guid: 6ba9a76703c801343bc78f0e34821cd6, type: 2}
+  OnCardPlayed: {fileID: 0}
+  OnStopLabyrinthChange: {fileID: 0}
+  OnTwoLaunchesInARow: {fileID: 0}
 --- !u!4 &2552453007931904741
 Transform:
   m_ObjectHideFlags: 0
@@ -3979,6 +3994,7 @@ MonoBehaviour:
   uiHandler: {fileID: 0}
   playerCardInventory: {fileID: 0}
   cardRandomizer: {fileID: 0}
+  mazeManager: {fileID: 0}
 --- !u!4 &2552453007974972599
 Transform:
   m_ObjectHideFlags: 0
@@ -4021,6 +4037,8 @@ MonoBehaviour:
   finishPanel: {fileID: 779903368}
   playCardPanelLayout: {fileID: 264953283}
   cardInventoryLayout: {fileID: 480906546}
+  playCardOrMove: {fileID: 0}
+  tutorialText: {fileID: 0}
 --- !u!4 &2552453008044575537
 Transform:
   m_ObjectHideFlags: 0
@@ -4576,7 +4594,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28fd686b414673a4cb9dc73b7517c852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canLaunch: 0
   launchForce: 4
   maxPullDistance: 8
 --- !u!1 &2552453008303460449

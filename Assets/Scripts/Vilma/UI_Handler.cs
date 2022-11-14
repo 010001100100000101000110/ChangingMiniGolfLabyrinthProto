@@ -57,6 +57,7 @@ public class UI_Handler : MonoBehaviour
     void Update()
     {
         if (helper.controller.ballSelected) UpdateSlider();
+        Debug.Log(Time.timeScale);
     }
 
     void UpdateSlider()
@@ -129,6 +130,7 @@ public class UI_Handler : MonoBehaviour
 
     void PresentCards(CardPresenting type)
     {
+        helper.timeManager.SetTimeScaleTo(0);
         List<SOCardProperties> cardList = new List<SOCardProperties>();
         switch (type)
         {
@@ -183,6 +185,8 @@ public class UI_Handler : MonoBehaviour
         for (int i = 0; i < cardUI.Count; i++)
         {
             cardUI[i].SetActive(false);
+            helper.timeManager.SetTimeScaleTo(1);
+
         }
         pickCardPanel.SetActive(false);
     }
@@ -196,6 +200,7 @@ public class UI_Handler : MonoBehaviour
         for (int i = 0; i < cardUI.Count; i++)
         {
             cardUI[i].SetActive(false);
+            helper.timeManager.SetTimeScaleTo(1);
         }
         playCardPanel.SetActive(false);
     }

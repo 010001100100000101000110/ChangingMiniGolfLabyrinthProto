@@ -30,6 +30,8 @@ public class BallController : MonoBehaviour
         startPosition = transform.position;
     }
 
+    
+
     void Update()
     {
         if (rigidbody.velocity.magnitude > 0 || !IsGrounded()) canLaunch = false;
