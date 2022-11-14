@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Otso_Scene1.0.unity
+    guid: 6fa4d1b93d1d68742901860f351151f2
   m_configObjects: {}

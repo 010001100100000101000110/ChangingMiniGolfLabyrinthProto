@@ -107,6 +107,7 @@ public class UI_Handler : MonoBehaviour
         for (int i = 0; i < images.Length; i++)
         {
             if (images[i].sprite.name == card.CardImage.name) Destroy(images[i]);
+            break;
         }
     }
 
