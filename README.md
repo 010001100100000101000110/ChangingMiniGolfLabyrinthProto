@@ -1,3 +1,3 @@
 # ChangingMiniGolfLabyrinthProto
 
-When our team had a prototyping phase, this was one of the projects I was a part of.
+Like the name suggests, this is a changing labyrinth + minigolf hybrid prototype
